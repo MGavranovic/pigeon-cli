@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	// "strings"
 	// "slices"
 )
 
@@ -34,7 +35,20 @@ func (c *LsCommand) Execute(args []string) error {
 		fmt.Printf("Error: %s", err)
 	}
 	for _, f := range dir {
-		fmt.Println(f.Name())
+		fInfo, err := f.Info()
+		if err != nil {
+			fmt.Printf("Unable to get file info from %s: %s \n", f, err)
+		}
+
+		fName := f.Name()
+		fSize := fInfo.Size()
+		fMode := fInfo.Mode()
+
+		fModY, fModM, fModD := fInfo.ModTime().Local().Date()
+		fModH, fModMin, fModS := fInfo.ModTime().Local().Clock()
+		timeFormatted := fmt.Sprintf("%02d:%02d:%02d", fModH, fModMin, fModS)
+
+		fmt.Printf("%-10s > %10db > %s > %d/%d/%d, %s\n", fName, fSize, fMode, fModD, fModM, fModY, timeFormatted)
 	}
 	return nil
 }
