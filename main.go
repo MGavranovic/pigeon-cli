@@ -17,6 +17,9 @@ func main() {
 		commands[c.Name()] = c
 	}
 
+	help := &cmd.HelpCommand{Commands: commands}
+	commands[help.Name()] = help
+
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
