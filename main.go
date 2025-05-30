@@ -35,12 +35,6 @@ func main() {
 		}
 		line := strings.TrimSpace(scanner.Text())
 
-		if line == "exit" {
-			fmt.Println("See you soon!")
-			os.Exit(0)
-			break
-		}
-
 		tokens := strings.Fields(line)
 		cmdName := tokens[0]
 		args := tokens[1:]

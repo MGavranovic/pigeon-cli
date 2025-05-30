@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	// "slices"
 )
 
 type LsCommand struct{}
@@ -16,6 +17,14 @@ func (c *LsCommand) Description() string {
 }
 
 func (c *LsCommand) Execute(args []string) error {
+	// allowedFlags := []string{"-a"}
+	// for i := 0; i < len(args); i++ {
+	// 	if slices.Contains(allowedFlags, args[i]) {
+	// 		fmt.Printf("Contains the flag: %s\n", args[i])
+	// 	} else {
+	// 		fmt.Printf("ls command doesn't recognize the flag %s\n", args[i])
+	// 	}
+	// }
 	for _, arg := range args {
 		fmt.Printf("These are args for the ls command %s\n", arg)
 	}
