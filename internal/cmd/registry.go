@@ -4,5 +4,6 @@ func AllCommands() []Command {
 	return []Command{
 		&LsCommand{},
 		&ExitCommand{},
+		&CdCommand{},
 	}
 }
