@@ -35,7 +35,6 @@ func (c *LsCommand) Execute(args []string) error {
 
 		for i := 0; i < len(args); i++ {
 			if slices.Contains(allowedFlags, args[i]) {
-				// fmt.Printf("Contains the flag: %s\n", args[i])
 				if args[i] == "-a" {
 					fName := f.Name()
 					fSize := fInfo.Size()
