@@ -1,6 +1,9 @@
 package cmd
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 type CdCommand struct{}
 
@@ -13,6 +16,15 @@ func (c *CdCommand) Description() string {
 }
 
 func (c *CdCommand) Execute(args []string) error {
-	fmt.Println("This is a cd command")
+	if len(args) == 0 {
+		fmt.Printf("Pleace specify the path\n")
+		return nil
+	}
+
+	path := args[0]
+	err := os.Chdir(path)
+	if err != nil {
+		fmt.Printf("Error changing dir using cd: %s\n", err)
+	}
 	return nil
 }
