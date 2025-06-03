@@ -5,5 +5,6 @@ func AllCommands() []Command {
 		&LsCommand{},
 		&ExitCommand{},
 		&CdCommand{},
+		&CatCommand{},
 	}
 }
