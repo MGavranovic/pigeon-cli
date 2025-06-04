@@ -19,12 +19,22 @@ func TestCatCommand(t *testing.T) {
 	})
 
 	t.Run("non-existent file", func(t *testing.T) {
-		filename := "non_existant_file.txt"
-		err := cat.Execute([]string{filename})
+		fName := "non_existant_file.txt"
+		err := cat.Execute([]string{fName})
 		if err == nil {
-			t.Errorf("[FAIL] Expected error for nonexistent file '%s', but got nil", filename)
+			t.Errorf("[FAIL] Expected error for nonexistent file '%s', but got nil", fName)
 		} else {
-			t.Logf("[PASS] Got expected error for nonexistent file '%s': %v", filename, err)
+			t.Logf("[PASS] Got expected error for nonexistent file '%s': %v", fName, err)
+		}
+	})
+
+	t.Run("valid file", func(t *testing.T) {
+		fName := "main.go"
+		err := cat.Execute([]string{fName})
+		if err == nil {
+			t.Errorf("[FAIL] Expected no error when reding valid file '%s', but got '%s'", fName, err)
+		} else {
+			t.Logf("[PASS] Successfully read from valid file '%s'", fName)
 		}
 	})
 }
