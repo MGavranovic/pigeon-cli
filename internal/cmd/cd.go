@@ -17,14 +17,13 @@ func (c *CdCommand) Description() string {
 
 func (c *CdCommand) Execute(args []string) error {
 	if len(args) == 0 {
-		fmt.Printf("Pleace specify the path\n")
-		return nil
+		return fmt.Errorf("please specify the path")
 	}
 
 	path := args[0]
 	err := os.Chdir(path)
 	if err != nil {
-		fmt.Printf("Error changing dir using cd: %s\n", err)
+		return fmt.Errorf("error changing dir using cd: %s", err)
 	}
 	return nil
 }

@@ -24,13 +24,13 @@ func (c *LsCommand) Execute(args []string) error {
 
 	dir, err := os.ReadDir(".")
 	if err != nil {
-		fmt.Printf("Error: %s", err)
+		return fmt.Errorf("error: %s", err)
 	}
 	errorCount := 0
 	for _, f := range dir {
 		fInfo, err := f.Info()
 		if err != nil {
-			fmt.Printf("Unable to get file info from %s: %s \n", f, err)
+			return fmt.Errorf("unable to get file info from %s: %s ", f, err)
 		}
 
 		for i := 0; i < len(args); i++ {
@@ -51,8 +51,8 @@ func (c *LsCommand) Execute(args []string) error {
 				if errorCount > 1 {
 					break
 				} else {
-					fmt.Printf("ls command doesn't recognize the flag %s\n", args[i])
-					break
+					return fmt.Errorf("ls command doesn't recognize the flag %s", args[i])
+
 				}
 			}
 		}
