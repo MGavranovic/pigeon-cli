@@ -6,5 +6,7 @@ func AllCommands() []Command {
 		&ExitCommand{},
 		&CdCommand{},
 		&CatCommand{},
+		// &MvCommand{},
+		&RmCommand{},
 	}
 }
