@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 
 	"github.com/fatih/color"
@@ -18,16 +18,10 @@ func (c *ExitCommand) Description() string {
 }
 
 func (c *ExitCommand) Execute(args []string) error {
-	color.RGB(255, 128, 0).Println("See you soon!")
-	color.Red("See you soon!")
-	fmt.Println("See you soon!")
+	style := color.RGB(35, 82, 38)
+	style.Add(color.BgGreen)
 
-	color.Red("This is red")
-	color.Green("This is green")
-	color.Yellow("This is yellow")
-
-	bold := color.New(color.FgCyan).Add(color.Bold)
-	bold.Println("This is bold cyan")
+	style.Println("See you soon! 👋")
 
 	os.Exit(0)
 	return nil

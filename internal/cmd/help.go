@@ -17,6 +17,9 @@ func (c *HelpCommand) Description() string {
 }
 
 func (c *HelpCommand) Execute(args []string) error {
+	if len(args) > 0 {
+		return fmt.Errorf("help needs not arguments")
+	}
 	fmt.Println("Available commands:")
 	for name, cmd := range c.Commands {
 		fmt.Printf("%-10s - %s\n", name, cmd.Description())
