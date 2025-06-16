@@ -8,5 +8,6 @@ func AllCommands() []Command {
 		&CatCommand{},
 		// &MvCommand{},
 		&RmCommand{},
+		&RnCommand{},
 	}
 }
