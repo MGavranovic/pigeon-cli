@@ -44,7 +44,7 @@ func main() {
 				fmt.Printf("Error running the command %s: %s\n", cmdName, err)
 			}
 		} else {
-			fmt.Printf("Unkwnown command %s.\n", cmdName)
+			fmt.Printf("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
 		}
 	}
 }
