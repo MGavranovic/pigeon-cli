@@ -19,7 +19,10 @@ func (c *MvCommand) Description() string {
 
 func (c *MvCommand) Execute(args []string) error {
 	if len(args) < 2 {
-		return fmt.Errorf("pleace specify the file you want to move and the destination dir")
+		return fmt.Errorf("please specify the file you want to move and the destination dir")
+	}
+	if len(args) > 2 {
+		return fmt.Errorf("too many arguments listed, please specify the file you want to move, and the destination dir")
 	}
 	// 1. make a note of the original/current wd
 	curwd, err := os.Getwd()
@@ -43,7 +46,7 @@ func (c *MvCommand) Execute(args []string) error {
 	newFile, err := os.Create(file.Name())
 	if err != nil {
 		file.Close()
-		return fmt.Errorf("errror creating file: %s", err)
+		return fmt.Errorf("error creating file: %s", err)
 	}
 	defer newFile.Close()
 
