@@ -1,0 +1,35 @@
+1. MvCommand - make improvements to cmd
+    - move multiple files (could add args for mv if used, allow multiple files)
+    - move to a remote drive/pc
+     Filesystem / Utility
+2. HelpCommand - make imvprovement -> help <cmd>
+
+// NOTE:
+Apart from the current functionality of the commands, the args/flags and the process of using them will have to be refined
+
+Possible additions:
+1. tree
+    Print the directory structure.
+2. touch
+    Create a new empty file
+3. cp
+    Copy files.
+4. head / tail
+    Show the first or last N lines of a file.
+5. grep
+    Search for a string inside files.
+6. wc
+    Count lines, words, or bytes in a file.
+7. count
+    Custom version of wc with total file count, file type stats, etc.
+8. find
+    Find a file by name.
+9. clear
+    Clears the terminal.
+10. history
+    List previous commands during this session.
+11. alias
+    Save shortcuts for longer commands (like ls -a → ll).
+12. prompt
+    Change the CLI prompt (e.g. from cwd > to something custom).
+
