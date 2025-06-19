@@ -9,5 +9,6 @@ func AllCommands() []Command {
 		&MvCommand{},
 		&RmCommand{},
 		&RnCommand{},
+		&TouchCommand{},
 	}
 }

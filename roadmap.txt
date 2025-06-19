@@ -7,6 +7,10 @@
 // NOTE:
 Apart from the current functionality of the commands, the args/flags and the process of using them will have to be refined
 
+// NOTE:
+Error coming from commands should be focusing on commands being failed.
+If I have to read the cur wd while using touch cmd for example, if reading the wd fails, I shouldn't be returning an error that tells that touch failed cause it failed to read dirs as. But I'll have to think about that.
+
 Possible additions:
 1. tree
     Print the directory structure.
