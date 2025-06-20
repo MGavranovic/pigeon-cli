@@ -36,6 +36,9 @@ func main() {
 		line := strings.TrimSpace(scanner.Text())
 
 		tokens := strings.Fields(line)
+		if len(tokens) == 0 {
+			continue
+		}
 		cmdName := tokens[0]
 		args := tokens[1:]
 		if c, ok := commands[cmdName]; ok {

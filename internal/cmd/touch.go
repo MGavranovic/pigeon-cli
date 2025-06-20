@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 type TouchCommand struct{}
@@ -20,26 +21,36 @@ func (c *TouchCommand) Execute(args []string) error {
 		return fmt.Errorf("please specify the 1 filename you are trying to create")
 	}
 
-	wd, err := os.Getwd()
-	if err != nil {
-		return fmt.Errorf("error getting cur working dir")
-	}
-
-	files, err := os.ReadDir(wd)
-	if err != nil {
-		return fmt.Errorf("error reading dir")
-	}
-	for _, f := range files {
-		if args[0] == f.Name() {
-			return fmt.Errorf("file already exists")
+	file := args[0]
+	if _, err := os.Stat(file); err == nil {
+		fmt.Println("File already exist, do you want to overwrite it?")
+		var input string
+		for {
+			fmt.Println("Y/N?")
+			fmt.Scan(&input)
+			input = strings.ToUpper(strings.TrimSpace(input))
+			switch input {
+			case "Y":
+				newFile, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC, 0644)
+				if err != nil {
+					return fmt.Errorf("issue creating a file: %s", err)
+				}
+				defer newFile.Close()
+				fmt.Println("File successfully overwritten!")
+				return nil
+			case "N":
+				return fmt.Errorf("file already exists, and you chose not to overwrite it")
+			default:
+				fmt.Println("Please enter Y or N")
+			}
 		}
+	} else {
+		newFile, err := os.Create(file)
+		if err != nil {
+			return fmt.Errorf("error creating a new file '%s': %s", newFile.Name(), err)
+		}
+		defer newFile.Close()
 	}
-
-	file, err := os.OpenFile(args[0], os.O_CREATE, 0644)
-	if err != nil {
-		return fmt.Errorf("issue creating a file: %s", err)
-	}
-	defer file.Close()
 
 	return nil
 }
