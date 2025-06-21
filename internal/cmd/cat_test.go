@@ -16,7 +16,7 @@ func TestCatCommand(t *testing.T) {
 	}
 
 	t.Run("no arguments", func(t *testing.T) {
-		err := cat.Execute([]string{})
+		_, err := cat.Execute([]string{})
 		if err == nil {
 			t.Errorf("[FAIL] Expected an error when no arguments are provided, but got nil")
 		} else {
@@ -26,7 +26,7 @@ func TestCatCommand(t *testing.T) {
 
 	t.Run("non-existent file", func(t *testing.T) {
 		fName := "non_existant_file.txt"
-		err := cat.Execute([]string{fName})
+		_, err := cat.Execute([]string{fName})
 		if err == nil {
 			t.Errorf("[FAIL] Expected error for nonexistent file '%s', but got nil", fName)
 		} else {
@@ -39,7 +39,7 @@ func TestCatCommand(t *testing.T) {
 		fmt.Println("[DEBUG] Current working directory:", cwd)
 
 		fName := "main.go"
-		err := cat.Execute([]string{fName})
+		_, err := cat.Execute([]string{fName})
 		if err != nil {
 			t.Errorf("[FAIL] Expected no error when reding valid file '%s', but got '%s'", fName, err)
 		} else {

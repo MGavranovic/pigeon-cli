@@ -16,9 +16,9 @@ func (c *TouchCommand) Description() string {
 	return "command for creating empty files"
 }
 
-func (c *TouchCommand) Execute(args []string) error {
+func (c *TouchCommand) Execute(args []string) (bool, error) {
 	if len(args) != 1 {
-		return fmt.Errorf("please specify the 1 filename you are trying to create")
+		return false, fmt.Errorf("please specify the 1 filename you are trying to create")
 	}
 
 	file := args[0]
@@ -33,13 +33,13 @@ func (c *TouchCommand) Execute(args []string) error {
 			case "Y":
 				newFile, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC, 0644)
 				if err != nil {
-					return fmt.Errorf("issue creating a file: %s", err)
+					return true, fmt.Errorf("issue creating a file: %s", err)
 				}
 				defer newFile.Close()
 				fmt.Println("File successfully overwritten!")
-				return nil
+				return true, nil
 			case "N":
-				return fmt.Errorf("file already exists, and you chose not to overwrite it")
+				return true, fmt.Errorf("file already exists, and you chose not to overwrite it")
 			default:
 				fmt.Println("Please enter Y or N")
 			}
@@ -47,10 +47,10 @@ func (c *TouchCommand) Execute(args []string) error {
 	} else {
 		newFile, err := os.Create(file)
 		if err != nil {
-			return fmt.Errorf("error creating a new file '%s': %s", newFile.Name(), err)
+			return false, fmt.Errorf("error creating a new file '%s': %s", file, err)
 		}
 		defer newFile.Close()
 	}
 
-	return nil
+	return false, nil
 }

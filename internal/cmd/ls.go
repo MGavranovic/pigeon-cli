@@ -16,7 +16,7 @@ func (c *LsCommand) Description() string {
 	return "Lists all the items in the current dir"
 }
 
-func (c *LsCommand) Execute(args []string) error {
+func (c *LsCommand) Execute(args []string) (bool, error) {
 	allowedFlags := []string{"-a"}
 	for _, arg := range args {
 		fmt.Printf("These are args for the ls command %s\n", arg)
@@ -24,13 +24,13 @@ func (c *LsCommand) Execute(args []string) error {
 
 	dir, err := os.ReadDir(".")
 	if err != nil {
-		return fmt.Errorf("error: %s", err)
+		return false, fmt.Errorf("error: %s", err)
 	}
 	errorCount := 0
 	for _, f := range dir {
 		fInfo, err := f.Info()
 		if err != nil {
-			return fmt.Errorf("unable to get file info from %s: %s ", f, err)
+			return false, fmt.Errorf("unable to get file info from %s: %s ", f, err)
 		}
 
 		for i := 0; i < len(args); i++ {
@@ -51,7 +51,7 @@ func (c *LsCommand) Execute(args []string) error {
 				if errorCount > 1 {
 					break
 				} else {
-					return fmt.Errorf("ls command doesn't recognize the flag %s", args[i])
+					return false, fmt.Errorf("ls command doesn't recognize the flag %s", args[i])
 
 				}
 			}
@@ -60,5 +60,5 @@ func (c *LsCommand) Execute(args []string) error {
 			fmt.Printf("%-10s\n", fInfo.Name())
 		}
 	}
-	return nil
+	return false, nil
 }

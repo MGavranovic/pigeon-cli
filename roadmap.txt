@@ -11,13 +11,18 @@ Apart from the current functionality of the commands, the args/flags and the pro
 Error coming from commands should be focusing on commands being failed.
 If I have to read the cur wd while using touch cmd for example, if reading the wd fails, I shouldn't be returning an error that tells that touch failed cause it failed to read dirs as. But I'll have to think about that.
 
+// NOTE:
+When using touch, if a file already exists, the cmd will ask you if you'd like to overwrite the file. Command works as intended, but the problem is that after you hit Y or N, the cwd will be printed twice in the same line
+DONE: Implemented another return as bool for supressing the cwd prompt in case Y/N is used.
+In the main.go, Scanner was picking up \n leftover from Y/N and starting the loop again which in turn printed the cwd twice.
+
 Possible additions:
 1. tree
     Print the directory structure.
 2. touch DONE:
     Create a new empty file
-3. cp
-    Copy files.
+3. cp TODO: work on overwriting the files Y/N question as in touch
+    Copy files. 
 4. head / tail
     Show the first or last N lines of a file.
 5. grep

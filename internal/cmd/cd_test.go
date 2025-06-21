@@ -15,7 +15,7 @@ func TestCdCommand(t *testing.T) {
 	}
 
 	t.Run("no args", func(t *testing.T) {
-		err := cd.Execute([]string{})
+		_, err := cd.Execute([]string{})
 		if err == nil {
 			t.Errorf("[FAIL] Expected and error when no arguments are provided, but got nil")
 		} else {
@@ -26,7 +26,7 @@ func TestCdCommand(t *testing.T) {
 	t.Run("valid path", func(t *testing.T) {
 		args := []string{".", "..", "C:\\Users"}
 		for _, arg := range args {
-			err := cd.Execute([]string{arg})
+			_, err := cd.Execute([]string{arg})
 			if err != nil {
 				t.Errorf("[FAIL] Expected no error when '%s' arg is passed, but got '%s'", arg, err)
 			} else {
@@ -38,7 +38,7 @@ func TestCdCommand(t *testing.T) {
 	t.Run("invalid path", func(t *testing.T) {
 		args := []string{"invalid path", "C:\\dasd\\dasa"}
 		for _, arg := range args {
-			err := cd.Execute([]string{arg})
+			_, err := cd.Execute([]string{arg})
 			if err == nil {
 				t.Errorf("[FAIL] Expected an error when '%s' invalid path is provided, but got nil", arg)
 			} else {

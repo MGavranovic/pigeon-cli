@@ -17,12 +17,12 @@ func (c *ExitCommand) Description() string {
 	return "Command for closing the program"
 }
 
-func (c *ExitCommand) Execute(args []string) error {
+func (c *ExitCommand) Execute(args []string) (bool, error) {
 	style := color.RGB(35, 82, 38)
 	style.Add(color.BgGreen)
 
 	style.Println("See you soon! 👋")
 
 	os.Exit(0)
-	return nil
+	return false, nil
 }

@@ -21,14 +21,18 @@ func main() {
 	commands[help.Name()] = help
 
 	scanner := bufio.NewScanner(os.Stdin)
+	suppressPrompt := false
 
 	for {
-		wd, err := os.Getwd()
-		if err != nil {
-			fmt.Printf("Error accessing path: %s", err)
-			continue
+		if !suppressPrompt {
+			wd, err := os.Getwd()
+			if err != nil {
+				fmt.Printf("Error accessing path: %s", err)
+				continue
+			}
+			fmt.Printf("%s: ", wd)
 		}
-		fmt.Printf("%s: ", wd)
+		suppressPrompt = false
 
 		if !scanner.Scan() {
 			break
@@ -42,7 +46,8 @@ func main() {
 		cmdName := tokens[0]
 		args := tokens[1:]
 		if c, ok := commands[cmdName]; ok {
-			err := c.Execute(args)
+			sp, err := c.Execute(args)
+			suppressPrompt = sp
 			if err != nil {
 				fmt.Printf("Error running the command %s: %s\n", cmdName, err)
 			}

@@ -16,13 +16,13 @@ func (c *HelpCommand) Description() string {
 	return "Lists all existing commands and it's descriptions"
 }
 
-func (c *HelpCommand) Execute(args []string) error {
+func (c *HelpCommand) Execute(args []string) (bool, error) {
 	if len(args) > 0 {
-		return fmt.Errorf("help needs not arguments")
+		return false, fmt.Errorf("help needs not arguments")
 	}
 	fmt.Println("Available commands:")
 	for name, cmd := range c.Commands {
 		fmt.Printf("%-10s - %s\n", name, cmd.Description())
 	}
-	return nil
+	return false, nil
 }
