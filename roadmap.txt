@@ -14,7 +14,7 @@ If I have to read the cur wd while using touch cmd for example, if reading the w
 Possible additions:
 1. tree
     Print the directory structure.
-2. touch
+2. touch DONE:
     Create a new empty file
 3. cp
     Copy files.
