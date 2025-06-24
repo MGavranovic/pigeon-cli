@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
+	"github.com/fatih/color"
 )
 
 func main() {
@@ -49,10 +50,10 @@ func main() {
 			sp, err := c.Execute(args)
 			suppressPrompt = sp
 			if err != nil {
-				fmt.Printf("Error running the command %s: %s\n", cmdName, err)
+				color.Red("Error running the command %s: %s\n", cmdName, err)
 			}
 		} else {
-			fmt.Printf("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
+			color.Red("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
 		}
 	}
 }
