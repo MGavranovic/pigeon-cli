@@ -21,6 +21,10 @@ func main() {
 	help := &cmd.HelpCommand{Commands: commands}
 	commands[help.Name()] = help
 
+	historyEntries := []cmd.Entry{}
+	history := &cmd.HistoryCommand{Entries: historyEntries}
+	commands[history.Name()] = history
+
 	scanner := bufio.NewScanner(os.Stdin)
 	suppressPrompt := false
 
@@ -49,6 +53,10 @@ func main() {
 		if c, ok := commands[cmdName]; ok {
 			sp, err := c.Execute(args)
 			suppressPrompt = sp
+
+			fullCmd := strings.Join(args, " ")
+			history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd})
+
 			if err != nil {
 				color.Red("Error running the command %s: %s\n", cmdName, err)
 			}
