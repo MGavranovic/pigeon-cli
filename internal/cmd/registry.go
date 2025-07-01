@@ -11,5 +11,6 @@ func AllCommands() []Command {
 		&RnCommand{},
 		&TouchCommand{},
 		&CpCommand{},
+		&ClCommand{},
 	}
 }

@@ -23,7 +23,7 @@ Possible additions:
     Print the directory structure.
 2. touch DONE:
     Create a new empty file
-3. cp TODO: work on overwriting the files Y/N question as in touch
+3. cp DONE:
     Copy files. 
 3.1. rm: DONE:
     Can add --force
@@ -37,10 +37,11 @@ Possible additions:
     Custom version of wc with total file count, file type stats, etc.
 8. find
     Find a file by name.
-9. clear
+9. clear DONE:
     Clears the terminal.
-10. history
+10. history DONE: 
     List previous commands during this session.
+    TODO: add something that shows the command passed or failed
 11. alias
     Save shortcuts for longer commands (like ls -a → ll).
 12. prompt
