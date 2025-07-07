@@ -16,6 +16,10 @@ When using touch, if a file already exists, the cmd will ask you if you'd like t
 DONE: Implemented another return as bool for supressing the cwd prompt in case Y/N is used.
 In the main.go, Scanner was picking up \n leftover from Y/N and starting the loop again which in turn printed the cwd twice.
 
+TODO:
+Refine how args are used.
+Should prob have a list of args for each command and define the behaviour depending on the arg/combination of args used.
+
 - Add colored success and error messages DONE:
 
 Possible additions:

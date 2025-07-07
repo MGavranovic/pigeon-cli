@@ -21,6 +21,9 @@ func (c *GrepCommand) Execute(args []string) (bool, error) {
 	if len(args) == 0 {
 		return false, fmt.Errorf("please specify what you're searching for and the file/path")
 	}
+	if len(args) > 2 {
+		return false, fmt.Errorf("please specify what you're searching for and the file/path")
+	}
 
 	search := args[0]
 	fName := args[1]
