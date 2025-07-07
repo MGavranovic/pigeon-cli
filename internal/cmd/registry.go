@@ -12,5 +12,6 @@ func AllCommands() []Command {
 		&TouchCommand{},
 		&CpCommand{},
 		&ClCommand{},
+		&GrepCommand{},
 	}
 }

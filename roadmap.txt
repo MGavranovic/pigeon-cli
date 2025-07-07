@@ -29,7 +29,7 @@ Possible additions:
     Can add --force
 4. head / tail
     Show the first or last N lines of a file.
-5. grep
+5. grep DONE:
     Search for a string inside files.
 6. wc
     Count lines, words, or bytes in a file.
