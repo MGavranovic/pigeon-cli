@@ -55,10 +55,12 @@ func main() {
 			suppressPrompt = sp
 
 			fullCmd := strings.Join(args, " ")
-			history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd})
 
 			if err != nil {
 				color.Red("Error running the command %s: %s\n", cmdName, err)
+				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: false})
+			} else {
+				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: true})
 			}
 		} else {
 			color.Red("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)

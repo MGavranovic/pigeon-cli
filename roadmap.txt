@@ -41,7 +41,7 @@ Possible additions:
     Clears the terminal.
 10. history DONE: 
     List previous commands during this session.
-    TODO: add something that shows the command passed or failed
+    Added color that shows the command passed or failed DONE:
 11. alias
     Save shortcuts for longer commands (like ls -a → ll).
 12. prompt
