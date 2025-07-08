@@ -13,5 +13,6 @@ func AllCommands() []Command {
 		&CpCommand{},
 		&ClCommand{},
 		&GrepCommand{},
+		&WcCommand{},
 	}
 }
