@@ -23,7 +23,7 @@ Should prob have a list of args for each command and define the behaviour depend
 - Add colored success and error messages DONE:
 
 Possible additions:
-1. tree
+1. tree DONE:
     Print the directory structure.
 2. touch DONE:
     Create a new empty file
