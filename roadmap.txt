@@ -20,6 +20,9 @@ TODO:
 Refine how args are used.
 Should prob have a list of args for each command and define the behaviour depending on the arg/combination of args used.
 
+TODO:
+Work on a better welcome and goodbye messages.
+
 - Add colored success and error messages DONE:
 
 Possible additions:
