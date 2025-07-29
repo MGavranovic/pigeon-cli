@@ -41,33 +41,33 @@ Below are planned or in-progress features for **pigeon-cli**.
 
 ### Completed
 
-- [x] ~~`ls`~~
+- [x] `ls`
       Lists all files and directories in the current working directory.
-- [x] ~~`cd`~~
+- [x] `cd`
       Changes the current working directory.
-- [x] ~~`cl`~~
+- [x] `cl`
       Clears the terminal screen.
-- [x] ~~`cp`~~
+- [x] `cp`
       Copies files from one location to another.
-- [x] ~~`cat`~~
+- [x] `cat`
       Displays the contents of a file.
-- [x] ~~`touch`~~
+- [x] `touch`
       Creates an empty file or updates the timestamp of an existing file.
-- [x] ~~`wc`~~
+- [x] `wc`
       Prints the byte size and word count of a file.
-- [x] ~~`tree`~~
+- [x] `tree`
       Recursively prints a tree structure of files and folders.
-- [x] ~~`help`~~
+- [x] `help`
       Displays a list of available commands and their descriptions.
-- [x] ~~`history`~~
+- [x] `history`
       Shows a list of previously run commands with success status.
-- [x] ~~`mv`~~
+- [x] `mv`
       Moves a file to a new location.
-- [x] ~~`rm`~~
+- [x] `rm`
       Deletes the specified file.
-- [x] ~~`rn`~~
+- [x] `rn`
       Renames a file.
-- [x] ~~`grep`~~
+- [x] `grep`
       Searches for a string in a file and highlights the matches.
 
 ### In Progress
@@ -82,10 +82,10 @@ Below are planned or in-progress features for **pigeon-cli**.
 - [ ] Zip/upload utility (e.g. move zipped files to remote destinations)
 - [ ] Cross-platform terminal support (Windows/macOS/Linux)
 
-## 🤝 Contributions
+## Contributions
 
 PRs, issues, and suggestions welcome.
 
-## 🫪 License
+## License
 
-MIT License. Built with 💻 by Milos Gavranovic.
+[MIT](./LICENSE) License. Built by Milos Gavranovic.
