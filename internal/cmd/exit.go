@@ -23,7 +23,7 @@ func (c *ExitCommand) Execute(args []string) (bool, error) {
 	style.Add(color.BgGreen)
 
 	style.Println("See you soon! 👋")
-	time.Sleep(10 * time.Second)
+	time.Sleep(3 * time.Second)
 	os.Exit(0)
 	return false, nil
 }

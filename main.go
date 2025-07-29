@@ -1,17 +1,26 @@
 package main
 
 import (
-	"bufio"
+	// "bufio"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
+	// keyboardcontrol "github.com/MGavranovic/pigeon-cli/internal/keyboard-control"
+	"github.com/eiannone/keyboard"
 	"github.com/fatih/color"
 )
 
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
+
+	// open keyboard
+	err := keyboard.Open()
+	if err != nil {
+		color.Red("Error opening keyboard: %s\n", err)
+	}
+	defer keyboard.Close()
 
 	commands := make(map[string]cmd.Command)
 	for _, c := range cmd.AllCommands() {
@@ -25,7 +34,7 @@ func main() {
 	history := &cmd.HistoryCommand{Entries: historyEntries}
 	commands[history.Name()] = history
 
-	scanner := bufio.NewScanner(os.Stdin)
+	// scanner := bufio.NewReader(os.Stdin)
 	suppressPrompt := false
 
 	for {
@@ -39,10 +48,38 @@ func main() {
 		}
 		suppressPrompt = false
 
-		if !scanner.Scan() {
-			break
+		// TODO:
+		buffer := ""
+		var input []rune
+		for {
+			r, key, err := keyboard.GetKey()
+			if err != nil {
+				color.Red("Error getting the key: %s", err)
+			}
+			switch key {
+			case keyboard.KeyTab:
+				fmt.Printf("\t")
+			case keyboard.KeyEnter:
+				goto EXECUTE
+			case keyboard.KeySpace:
+				fmt.Printf(string(32))
+				input = append(input, ' ')
+			case keyboard.KeyBackspace:
+				if len(input) > 0 {
+					input = input[:len(input)-1]
+					fmt.Printf("\b \b")
+				}
+			default:
+				fmt.Printf(buffer + string(r))
+				input = append(input, r)
+			}
 		}
-		line := strings.TrimSpace(scanner.Text())
+		// NOTE:
+		// if !scanner.Scan() {
+		// 	break
+		// }
+	EXECUTE:
+		line := strings.TrimSpace(string(input))
 
 		tokens := strings.Fields(line)
 		if len(tokens) == 0 {
@@ -57,13 +94,13 @@ func main() {
 			fullCmd := strings.Join(args, " ")
 
 			if err != nil {
-				color.Red("Error running the command %s: %s\n", cmdName, err)
+				color.Red("\nError running the command %s: %s\n", cmdName, err)
 				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: false})
 			} else {
 				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: true})
 			}
 		} else {
-			color.Red("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
+			color.Red("\nUnkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
 		}
 	}
 }
