@@ -78,9 +78,10 @@ Below are planned or in-progress features for **pigeon-cli**.
 
 - [ ] Command aliases
 - [ ] Config file for themes/settings/shortcuts
-- [ ] File search (`find`, `grep`)
-- [ ] Zip/upload utility (e.g. move zipped files to remote destinations)
+- [ ] File search
+- [ ] Zip/upload utility
 - [ ] Cross-platform terminal support (Windows/macOS/Linux)
+- [ ] Setup a pipleine for running the build process for the app.
 
 ## Contributions
 
