@@ -29,8 +29,7 @@ pigeon-cli/
 │       ├── ls.go
 │       ├── cd.go
 │       ├── ...
-├── src/
-│   └── main.go           # Main entry point
+├── main.go           # Main entry point
 ├── go.mod
 └── README.md
 ```
