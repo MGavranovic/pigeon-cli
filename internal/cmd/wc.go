@@ -23,7 +23,7 @@ func (c *WcCommand) Execute(args []string) (bool, error) {
 	fName := args[0]
 	file, err := os.Stat(fName)
 	if err != nil {
-		return false, fmt.Errorf("error getting stats of %s", fName)
+		return false, fmt.Errorf("error getting stats of %s: %s", fName, err)
 	}
 
 	if file.IsDir() {
@@ -39,6 +39,6 @@ func (c *WcCommand) Execute(args []string) (bool, error) {
 	for i := 0; i < len(words); i++ {
 		wc++
 	}
-	fmt.Printf("%s is %d bytes long and has %d words\n", file.Name(), file.Size(), wc)
+	fmt.Printf("\n%s is %d bytes long and has %d words\n", file.Name(), file.Size(), wc)
 	return false, nil
 }

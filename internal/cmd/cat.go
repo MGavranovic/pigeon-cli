@@ -16,7 +16,6 @@ func (c *CatCommand) Description() string {
 }
 
 func (c *CatCommand) Execute(args []string) (bool, error) {
-	fmt.Printf("Args received: %s\n", args)
 	if len(args) == 0 {
 		return false, fmt.Errorf("please specify the file you want to read")
 	}
@@ -27,6 +26,6 @@ func (c *CatCommand) Execute(args []string) (bool, error) {
 		return false, fmt.Errorf("error reading from file %s: %s", fName, err)
 	}
 	s := string(file)
-	fmt.Println(s)
+	fmt.Println("\n", s)
 	return false, nil
 }
