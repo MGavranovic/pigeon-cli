@@ -18,10 +18,7 @@ func (c *GrepCommand) Description() string {
 }
 
 func (c *GrepCommand) Execute(args []string) (bool, error) {
-	if len(args) == 0 {
-		return false, fmt.Errorf("please specify what you're searching for and the file/path")
-	}
-	if len(args) > 2 {
+	if len(args) != 2 {
 		return false, fmt.Errorf("please specify what you're searching for and the file/path")
 	}
 
@@ -45,7 +42,7 @@ func (c *GrepCommand) Execute(args []string) (bool, error) {
 			arr := strings.Split(l, search)
 			final := strings.Join(arr, found(search))
 
-			fmt.Printf("%s found %dx\nLocation: line %d in %s > %s\n", search, count, i+1, fName, final)
+			fmt.Printf("\n%s found %dx\nLocation: line %d in %s > %s\n", search, count, i+1, fName, final)
 		}
 	}
 	if !contains {
