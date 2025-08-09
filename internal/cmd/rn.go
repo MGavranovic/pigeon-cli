@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 	"os"
+
+	"github.com/fatih/color"
 )
 
 type RnCommand struct{}
@@ -25,7 +27,9 @@ func (c *RnCommand) Execute(args []string) (bool, error) {
 	if err != nil {
 		return false, fmt.Errorf("unable to rename '%s' into '%s'", old, new)
 	} else {
-		fmt.Printf("Successfully renamed '%s' into '%s'", old, new)
+		styleOld := color.New(color.FgRed).SprintfFunc()
+		styleNew := color.New(color.FgGreen).SprintfFunc()
+		fmt.Printf("\nSuccessfully renamed '%s' into '%s'", styleOld(old), styleNew(new))
 	}
 	return false, nil
 }
