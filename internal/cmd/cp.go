@@ -17,11 +17,8 @@ func (c *CpCommand) Description() string {
 }
 
 func (c *CpCommand) Execute(args []string) (bool, error) {
-	if len(args) < 2 {
+	if len(args) != 2 {
 		return false, fmt.Errorf("please specify the file you want to move and the destination dir")
-	}
-	if len(args) > 2 {
-		return false, fmt.Errorf("too many arguments listed, please specify the file you want to move, and the destination dir")
 	}
 	// 1. make a note of the original/current wd
 	curwd, err := os.Getwd()

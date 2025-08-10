@@ -20,7 +20,7 @@ func (c *HelpCommand) Execute(args []string) (bool, error) {
 	if len(args) > 0 {
 		return false, fmt.Errorf("help needs not arguments")
 	}
-	fmt.Println("\nAvailable commands:")
+	fmt.Println("Available commands:")
 	for name, cmd := range c.Commands {
 		fmt.Printf("%-10s - %s\n", name, cmd.Description())
 	}

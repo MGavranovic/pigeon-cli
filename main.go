@@ -44,7 +44,7 @@ func main() {
 				fmt.Printf("Error accessing path: %s", err)
 				continue
 			}
-			fmt.Printf("%s: ", wd)
+			fmt.Printf("\n%s: ", wd)
 		}
 		suppressPrompt = false
 
@@ -60,6 +60,7 @@ func main() {
 			case keyboard.KeyTab:
 				fmt.Printf("\t")
 			case keyboard.KeyEnter:
+				fmt.Printf("\n")
 				goto EXECUTE
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
@@ -94,13 +95,13 @@ func main() {
 			fullCmd := strings.Join(args, " ")
 
 			if err != nil {
-				color.Red("\nError running the command %s: %s\n", cmdName, err)
+				color.Red("Error running the command %s: %s\n", cmdName, err)
 				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: false})
 			} else {
 				history.Entries = append(history.Entries, cmd.Entry{Cmd: cmdName, Args: fullCmd, Success: true})
 			}
 		} else {
-			color.Red("\nUnkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
+			color.Red("Unkwnown command %s.\nPlease use help command to get a list of all available commands\n", cmdName)
 		}
 	}
 }

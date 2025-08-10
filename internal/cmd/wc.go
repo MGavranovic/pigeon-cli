@@ -39,6 +39,6 @@ func (c *WcCommand) Execute(args []string) (bool, error) {
 	for i := 0; i < len(words); i++ {
 		wc++
 	}
-	fmt.Printf("\n%s is %d bytes long and has %d words\n", file.Name(), file.Size(), wc)
+	fmt.Printf("%s is %d bytes long and has %d words\n", file.Name(), file.Size(), wc)
 	return false, nil
 }

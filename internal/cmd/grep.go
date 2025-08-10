@@ -42,7 +42,7 @@ func (c *GrepCommand) Execute(args []string) (bool, error) {
 			arr := strings.Split(l, search)
 			final := strings.Join(arr, found(search))
 
-			fmt.Printf("\n%s found %dx\nLocation: line %d in %s > %s\n", search, count, i+1, fName, final)
+			fmt.Printf("%s found %dx\nLocation: line %d in %s > %s\n", search, count, i+1, fName, final)
 		}
 	}
 	if !contains {

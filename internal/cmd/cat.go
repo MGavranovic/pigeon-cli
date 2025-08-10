@@ -26,6 +26,6 @@ func (c *CatCommand) Execute(args []string) (bool, error) {
 		return false, fmt.Errorf("error reading from file %s: %s", fName, err)
 	}
 	s := string(file)
-	fmt.Println("\n", s)
+	fmt.Println(s)
 	return false, nil
 }
