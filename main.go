@@ -44,7 +44,7 @@ func main() {
 				fmt.Printf("Error accessing path: %s", err)
 				continue
 			}
-			fmt.Printf("\n%s: ", wd)
+			fmt.Printf("%s: ", wd)
 		}
 		suppressPrompt = false
 
