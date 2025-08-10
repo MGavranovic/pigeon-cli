@@ -44,9 +44,9 @@ func (c *RmCommand) Execute(args []string) (bool, error) {
 				return false, fmt.Errorf("error removing the file: %s", err)
 			}
 			fmt.Printf(" - %s - file deleted successfully\n", path)
-			return true, nil
+			return false, nil
 		case "N":
-			return true, fmt.Errorf("you chose not to delete the file")
+			return false, fmt.Errorf("you chose not to delete the file")
 		default:
 			fmt.Println("Please enter Y or N")
 		}

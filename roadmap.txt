@@ -23,6 +23,9 @@ Should prob have a list of args for each command and define the behaviour depend
 TODO:
 Work on a better welcome and goodbye messages.
 
+TODO:
+Potentially no need for supressPrompt anymore. Will need to investigate.
+
 - Add colored success and error messages DONE:
 
 Possible additions:

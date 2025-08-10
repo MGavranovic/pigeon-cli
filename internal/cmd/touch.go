@@ -33,13 +33,13 @@ func (c *TouchCommand) Execute(args []string) (bool, error) {
 			case "Y":
 				newFile, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC, 0644)
 				if err != nil {
-					return true, fmt.Errorf("issue creating a file: %s", err)
+					return false, fmt.Errorf("issue creating a file: %s", err)
 				}
 				defer newFile.Close()
 				fmt.Println("File successfully overwritten!")
-				return true, nil
+				return false, nil
 			case "N":
-				return true, fmt.Errorf("file already exists, and you chose not to overwrite it")
+				return false, fmt.Errorf("file already exists, and you chose not to overwrite it")
 			default:
 				fmt.Println("Please enter Y or N")
 			}

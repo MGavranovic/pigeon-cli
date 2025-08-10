@@ -29,7 +29,7 @@ func (c *RnCommand) Execute(args []string) (bool, error) {
 	} else {
 		styleOld := color.New(color.FgRed).SprintfFunc()
 		styleNew := color.New(color.FgGreen).SprintfFunc()
-		fmt.Printf("\nSuccessfully renamed '%s' into '%s'", styleOld(old), styleNew(new))
+		fmt.Printf("Successfully renamed '%s' into '%s'\n", styleOld(old), styleNew(new))
 	}
 	return false, nil
 }
