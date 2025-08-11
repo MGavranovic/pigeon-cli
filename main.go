@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/MGavranovic/pigeon-cli/internal/autocomplete"
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
-	// keyboardcontrol "github.com/MGavranovic/pigeon-cli/internal/keyboard-control"
 	"github.com/eiannone/keyboard"
 	"github.com/fatih/color"
 )
@@ -37,6 +37,10 @@ func main() {
 	// scanner := bufio.NewReader(os.Stdin)
 	suppressPrompt := false
 
+	// autocomplete start
+	ac := autocomplete.New(commands)
+	ac.Start()
+
 	for {
 		if !suppressPrompt {
 			wd, err := os.Getwd()
@@ -59,20 +63,26 @@ func main() {
 			switch key {
 			case keyboard.KeyTab:
 				fmt.Printf("\t")
+				for _, suggestions := range ac.GetSuggestions() {
+					fmt.Println(suggestions)
+				}
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
 				goto EXECUTE
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
 				input = append(input, ' ')
+				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
 				if len(input) > 0 {
 					input = input[:len(input)-1]
+					ac.UpdatePrefix(string(input))
 					fmt.Printf("\b \b")
 				}
 			default:
 				fmt.Printf(buffer + string(r))
 				input = append(input, r)
+				ac.UpdatePrefix(string(input))
 			}
 		}
 		// NOTE:
