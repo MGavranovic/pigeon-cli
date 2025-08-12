@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -62,12 +61,18 @@ func main() {
 			}
 			switch key {
 			case keyboard.KeyTab:
-				fmt.Printf("\t")
+				fmt.Print("\033[s")  // save cursor pos
+				fmt.Print("\033[0J") // clear below cursor
+				fmt.Print("\033[E")  // move a line below
+
 				for _, suggestions := range ac.GetSuggestions() {
-					fmt.Println(suggestions)
+					fmt.Println(suggestions) // print suggestions
 				}
+
+				fmt.Print("\033[u")
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
+				fmt.Print("\033[0J")
 				goto EXECUTE
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
