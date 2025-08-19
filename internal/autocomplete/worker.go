@@ -12,9 +12,15 @@ import (
 
 type Engine struct {
 	prefix      string
-	Suggestions []string
+	Suggestions []Suggestion
 	mu          sync.RWMutex
 	Commands    map[string]cmd.Command
+}
+
+type Suggestion struct {
+	cmd  string
+	arg  string
+	file string
 }
 
 func New(cmds map[string]cmd.Command) *Engine {
@@ -33,28 +39,28 @@ func (e *Engine) Start() {
 				continue
 			}
 
-			cmdResults := make(chan []string)
-			fsResults := make(chan []string)
+			cmdResults := make(chan []Suggestion)
+			fsResults := make(chan []Suggestion)
 
 			go func() {
-				matches := []string{}
+				matches := []Suggestion{}
 				for name := range e.Commands {
 					if strings.HasPrefix(name, currPrefix) {
-						matches = append(matches, name)
+						matches = append(matches, Suggestion{name, "", ""})
 					}
 				}
 				cmdResults <- matches
 			}()
 
 			go func() {
-				matches := []string{}
+				matches := []Suggestion{}
 				entries, err := os.ReadDir(".")
 				if err != nil {
 					fmt.Printf("error reading current dir in autocomplete: %s", err)
 				}
 				for _, e := range entries {
 					if strings.HasPrefix(e.Name(), currPrefix) {
-						matches = append(matches, e.Name())
+						matches = append(matches, Suggestion{"", "", e.Name()})
 					}
 				}
 				fsResults <- matches
@@ -77,5 +83,18 @@ func (e *Engine) UpdatePrefix(newPrefix string) {
 func (e *Engine) GetSuggestions() []string {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
-	return append([]string{}, e.Suggestions...)
+
+	sortedSuggestions := []string{}
+	for _, s := range e.Suggestions {
+		if s.cmd != "" {
+			sortedSuggestions = append(sortedSuggestions, s.cmd)
+		}
+	}
+	for _, s := range e.Suggestions {
+		if s.file != "" {
+			sortedSuggestions = append(sortedSuggestions, s.file)
+		}
+	}
+
+	return append([]string{}, sortedSuggestions...)
 }
