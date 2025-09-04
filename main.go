@@ -65,11 +65,11 @@ func main() {
 				fmt.Print("\033[0J") // clear below cursor
 				fmt.Print("\033[E")  // move a line below
 
-				for _, suggestions := range ac.GetSuggestions() {
-					fmt.Println(suggestions) // print suggestions
+				for i, s := range ac.GetSuggestions() {
+					fmt.Printf("Suggestion at position [%d]: %s\n", i, s) // print suggestions
 				}
 
-				fmt.Print("\033[u")
+				fmt.Print("\033[u") // restore original pos
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
 				fmt.Print("\033[0J")

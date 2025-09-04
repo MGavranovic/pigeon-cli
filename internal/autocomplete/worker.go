@@ -21,9 +21,11 @@ type Suggestion struct {
 	cmd  string
 	arg  string
 	file string
+	desc string
 }
 
 func New(cmds map[string]cmd.Command) *Engine {
+	fmt.Println(&Engine{Commands: cmds})
 	return &Engine{Commands: cmds}
 }
 
@@ -45,8 +47,9 @@ func (e *Engine) Start() {
 			go func() {
 				matches := []Suggestion{}
 				for name := range e.Commands {
+					desc := e.Commands[name].Description()
 					if strings.HasPrefix(name, currPrefix) {
-						matches = append(matches, Suggestion{name, "", ""})
+						matches = append(matches, Suggestion{name, "", "", desc})
 					}
 				}
 				cmdResults <- matches
@@ -60,7 +63,7 @@ func (e *Engine) Start() {
 				}
 				for _, e := range entries {
 					if strings.HasPrefix(e.Name(), currPrefix) {
-						matches = append(matches, Suggestion{"", "", e.Name()})
+						matches = append(matches, Suggestion{"", "", e.Name(), ""})
 					}
 				}
 				fsResults <- matches
@@ -80,21 +83,21 @@ func (e *Engine) UpdatePrefix(newPrefix string) {
 	e.prefix = newPrefix
 }
 
-func (e *Engine) GetSuggestions() []string {
+func (e *Engine) GetSuggestions() []Suggestion {
 	e.mu.RLock()
 	defer e.mu.RUnlock()
 
-	sortedSuggestions := []string{}
+	sortedSuggestions := []Suggestion{}
 	for _, s := range e.Suggestions {
 		if s.cmd != "" {
-			sortedSuggestions = append(sortedSuggestions, s.cmd)
+			sortedSuggestions = append(sortedSuggestions, s)
 		}
 	}
 	for _, s := range e.Suggestions {
 		if s.file != "" {
-			sortedSuggestions = append(sortedSuggestions, s.file)
+			sortedSuggestions = append(sortedSuggestions, s)
 		}
 	}
-
-	return append([]string{}, sortedSuggestions...)
+	fmt.Println(sortedSuggestions)
+	return append([]Suggestion{}, sortedSuggestions...)
 }
