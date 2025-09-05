@@ -65,8 +65,9 @@ func main() {
 				fmt.Print("\033[0J") // clear below cursor
 				fmt.Print("\033[E")  // move a line below
 
-				for i, s := range ac.GetSuggestions() {
-					fmt.Printf("Suggestion at position [%d]: %s\n", i, s) // print suggestions
+				for _, s := range ac.GetSuggestions() {
+					gap := 40 - len(s.Cmd)
+					fmt.Printf("%s %*s\n", s.Cmd, gap, s.Desc) // print suggestions
 				}
 
 				fmt.Print("\033[u") // restore original pos

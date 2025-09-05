@@ -18,10 +18,10 @@ type Engine struct {
 }
 
 type Suggestion struct {
-	cmd  string
-	arg  string
-	file string
-	desc string
+	Cmd  string
+	Arg  string
+	File string
+	Desc string
 }
 
 func New(cmds map[string]cmd.Command) *Engine {
@@ -89,12 +89,12 @@ func (e *Engine) GetSuggestions() []Suggestion {
 
 	sortedSuggestions := []Suggestion{}
 	for _, s := range e.Suggestions {
-		if s.cmd != "" {
+		if s.Cmd != "" {
 			sortedSuggestions = append(sortedSuggestions, s)
 		}
 	}
 	for _, s := range e.Suggestions {
-		if s.file != "" {
+		if s.File != "" {
 			sortedSuggestions = append(sortedSuggestions, s)
 		}
 	}
