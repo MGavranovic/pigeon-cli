@@ -74,8 +74,8 @@ func main() {
 					for i := 0; i < gap; i++ {
 						toColorCmd += " "
 					}
-					coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf(s.Desc)
-					coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf(toColorCmd)
+					coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf("%s", s.Desc)
+					coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf("%s", toColorCmd)
 					fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc) // print suggestions
 				}
 
@@ -85,7 +85,7 @@ func main() {
 				fmt.Print("\033[0J")
 				goto EXECUTE
 			case keyboard.KeySpace:
-				fmt.Printf(string(32))
+				fmt.Printf(string(rune(32)))
 				input = append(input, ' ')
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
@@ -95,7 +95,7 @@ func main() {
 					fmt.Printf("\b \b")
 				}
 			default:
-				fmt.Printf(buffer + string(r))
+				fmt.Printf("%s", buffer+string(r))
 				input = append(input, r)
 				ac.UpdatePrefix(string(input))
 			}
