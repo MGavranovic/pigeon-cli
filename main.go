@@ -65,9 +65,18 @@ func main() {
 				fmt.Print("\033[0J") // clear below cursor
 				fmt.Print("\033[E")  // move a line below
 
+				descColor := color.RGB(55, 69, 96)
+				cmdColor := color.RGB(1, 1, 0)
+
 				for _, s := range ac.GetSuggestions() {
-					gap := 40 - len(s.Cmd)
-					fmt.Printf("%s %*s\n", s.Cmd, gap, s.Desc) // print suggestions
+					gap := 10 - len(s.Cmd)
+					toColorCmd := fmt.Sprintf("%s", s.Cmd)
+					for i := 0; i < gap; i++ {
+						toColorCmd += " "
+					}
+					coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf(s.Desc)
+					coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf(toColorCmd)
+					fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc) // print suggestions
 				}
 
 				fmt.Print("\033[u") // restore original pos
