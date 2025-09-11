@@ -25,7 +25,6 @@ type Suggestion struct {
 }
 
 func New(cmds map[string]cmd.Command) *Engine {
-	fmt.Println(&Engine{Commands: cmds})
 	return &Engine{Commands: cmds}
 }
 
@@ -98,6 +97,5 @@ func (e *Engine) GetSuggestions() []Suggestion {
 			sortedSuggestions = append(sortedSuggestions, s)
 		}
 	}
-	fmt.Println(sortedSuggestions)
 	return append([]Suggestion{}, sortedSuggestions...)
 }
