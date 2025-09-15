@@ -73,37 +73,8 @@ func main() {
 			}
 			switch key {
 			case keyboard.KeyTab:
-				fmt.Print("\033[s")  // save cursor pos
-				fmt.Print("\033[0J") // clear below cursor
-				fmt.Print("\033[E")  // move a line below
-
-				descColor := color.RGB(55, 69, 96)
-				cmdColor := color.RGB(1, 1, 0)
-				highlightDesc := color.RGB(1, 1, 0)
-				highlightCmd := color.RGB(55, 69, 96)
-
-				/*
-					DOC:
-					compare the pos to current index in for loop
-				*/
-				for i, s := range ac.GetSuggestions() {
-					gap := 10 - len(s.Cmd)
-					toColorCmd := fmt.Sprintf("%s", s.Cmd)
-					for i := 0; i < gap; i++ {
-						toColorCmd += " "
-					}
-					if pos == i {
-						fmt.Println("pos", pos, i+1)
-						coloredDesc := highlightDesc.AddBgRGB(1, 0, 1).Sprintf("%s", s.Desc)
-						coloredCmd := highlightCmd.AddBgRGB(127, 148, 189).Sprintf("%s", toColorCmd)
-						fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc)
-					}
-					coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf("%s", s.Desc)
-					coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf("%s", toColorCmd)
-					fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc) // print suggestions
-				}
-
-				fmt.Print("\033[u") // restore original pos
+				pos = 0
+				autocomplete.RenderSuggestions(ac, pos)
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
 				fmt.Print("\033[0J")
@@ -121,10 +92,12 @@ func main() {
 			case keyboard.KeyArrowDown:
 				if pos < len(ac.GetSuggestions()) {
 					pos++
+					autocomplete.RenderSuggestions(ac, pos)
 				}
 			case keyboard.KeyArrowUp:
 				if pos != 0 {
 					pos--
+					autocomplete.RenderSuggestions(ac, pos)
 				}
 			default:
 				fmt.Printf("%s", buffer+string(r))

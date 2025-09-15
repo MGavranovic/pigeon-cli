@@ -58,3 +58,6 @@ Possible additions:
 12. prompt
     Change the CLI prompt (e.g. from cwd > to something custom).
 
+DEBUG:
+Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
+Need to investigate that.
