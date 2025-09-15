@@ -11,6 +11,17 @@ import (
 	"github.com/fatih/color"
 )
 
+/*
+DOC:
+pos is to be used for moving with arrow keys for selecting an autocomplete suggestion
+pos = 0 - default or the original cursor position for the console line 	where you type
+pos = 1 - first proposed suggestion
+pos = pos + 1 - higlight the next pos
+pos = pos - 1 - highlight the prev pos
+pos = len(suggestsions) last position NOTE: prob have to adjust this
+*/
+var pos int = 0
+
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
 
@@ -54,6 +65,7 @@ func main() {
 		// TODO:
 		buffer := ""
 		var input []rune
+
 		for {
 			r, key, err := keyboard.GetKey()
 			if err != nil {
@@ -67,12 +79,24 @@ func main() {
 
 				descColor := color.RGB(55, 69, 96)
 				cmdColor := color.RGB(1, 1, 0)
+				highlightDesc := color.RGB(1, 1, 0)
+				highlightCmd := color.RGB(55, 69, 96)
 
-				for _, s := range ac.GetSuggestions() {
+				/*
+					DOC:
+					compare the pos to current index in for loop
+				*/
+				for i, s := range ac.GetSuggestions() {
 					gap := 10 - len(s.Cmd)
 					toColorCmd := fmt.Sprintf("%s", s.Cmd)
 					for i := 0; i < gap; i++ {
 						toColorCmd += " "
+					}
+					if pos == i {
+						fmt.Println("pos", pos, i+1)
+						coloredDesc := highlightDesc.AddBgRGB(1, 0, 1).Sprintf("%s", s.Desc)
+						coloredCmd := highlightCmd.AddBgRGB(127, 148, 189).Sprintf("%s", toColorCmd)
+						fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc)
 					}
 					coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf("%s", s.Desc)
 					coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf("%s", toColorCmd)
@@ -85,7 +109,7 @@ func main() {
 				fmt.Print("\033[0J")
 				goto EXECUTE
 			case keyboard.KeySpace:
-				fmt.Printf(string(rune(32)))
+				fmt.Printf(string(32))
 				input = append(input, ' ')
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
@@ -93,6 +117,14 @@ func main() {
 					input = input[:len(input)-1]
 					ac.UpdatePrefix(string(input))
 					fmt.Printf("\b \b")
+				}
+			case keyboard.KeyArrowDown:
+				if pos < len(ac.GetSuggestions()) {
+					pos++
+				}
+			case keyboard.KeyArrowUp:
+				if pos != 0 {
+					pos--
 				}
 			default:
 				fmt.Printf("%s", buffer+string(r))
