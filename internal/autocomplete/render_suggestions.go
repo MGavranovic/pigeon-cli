@@ -26,9 +26,8 @@ func RenderSuggestions(ac *Engine, pos int) {
 		for range gap {
 			toColorCmd += " "
 		}
-		// fmt.Println("pos", pos, i+1)
+
 		if pos == i+1 {
-			// fmt.Println("pos", pos, i+1)
 			coloredDesc := highlightDesc.AddBgRGB(1, 0, 1).Sprintf("%s", s.Desc)
 			coloredCmd := highlightCmd.AddBgRGB(127, 148, 189).Sprintf("%s", toColorCmd)
 			fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc)
