@@ -90,13 +90,13 @@ func main() {
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
 				input = append(input, ' ')
-				if cursor < len(input)-1 {
+				if cursor < len(input) {
 					cursor++
 				}
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
 				if len(input) > 0 {
-					if cursor > 1 {
+					if cursor > 0 {
 						cursor--
 					}
 					input = input[:len(input)-1]
