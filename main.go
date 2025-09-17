@@ -22,6 +22,13 @@ pos = len(suggestsions) last position NOTE: prob have to adjust this
 */
 var pos int = 0
 
+/*
+DOC:
+cursor is used to move left and right in the user input string
+*/
+var cursor int = 0
+var wdLen int
+
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
 
@@ -59,6 +66,7 @@ func main() {
 				continue
 			}
 			fmt.Printf("%s: ", wd)
+			wdLen = len(fmt.Sprint(wd))
 		}
 		suppressPrompt = false
 
@@ -82,9 +90,15 @@ func main() {
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
 				input = append(input, ' ')
+				if cursor < len(input)-1 {
+					cursor++
+				}
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
 				if len(input) > 0 {
+					if cursor > 1 {
+						cursor--
+					}
 					input = input[:len(input)-1]
 					ac.UpdatePrefix(string(input))
 					fmt.Printf("\b \b")
@@ -99,8 +113,21 @@ func main() {
 					pos--
 					autocomplete.RenderSuggestions(ac, pos)
 				}
+				// input = []rune{}
+				// fmt.Printf("%s", historyEntries[len(historyEntries)-1])
+			case keyboard.KeyArrowLeft:
+				if cursor > 0 {
+					cursor--
+					fmt.Print("\033[D")
+				}
+			case keyboard.KeyArrowRight:
+				if cursor < len(input) {
+					cursor++
+					fmt.Print("\033[C")
+				}
 			default:
 				fmt.Printf("%s", buffer+string(r))
+				cursor++
 				input = append(input, r)
 				ac.UpdatePrefix(string(input))
 			}
