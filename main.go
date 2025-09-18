@@ -7,6 +7,7 @@ import (
 
 	"github.com/MGavranovic/pigeon-cli/internal/autocomplete"
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
+	"github.com/MGavranovic/pigeon-cli/internal/inputpkg"
 	"github.com/eiannone/keyboard"
 	"github.com/fatih/color"
 )
@@ -28,6 +29,12 @@ cursor is used to move left and right in the user input string
 */
 var cursor int = 0
 var wdLen int
+
+/*
+DOC:
+for global state
+*/
+var cwd string
 
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
@@ -51,7 +58,6 @@ func main() {
 	history := &cmd.HistoryCommand{Entries: historyEntries}
 	commands[history.Name()] = history
 
-	// scanner := bufio.NewReader(os.Stdin)
 	suppressPrompt := false
 
 	// autocomplete start
@@ -67,13 +73,11 @@ func main() {
 			}
 			fmt.Printf("%s: ", wd)
 			wdLen = len(fmt.Sprint(wd))
+			cwd = wd
 		}
 		suppressPrompt = false
 
-		// TODO:
-		buffer := ""
 		var input []rune
-
 		for {
 			r, key, err := keyboard.GetKey()
 			if err != nil {
@@ -95,13 +99,11 @@ func main() {
 				}
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
-				if len(input) > 0 {
-					if cursor > 0 {
-						cursor--
-					}
-					input = input[:len(input)-1]
+				if len(input) > 0 && cursor > 0 {
+					input = append(input[:cursor-1], input[cursor:]...)
+					cursor--
+					inputpkg.RedrawInput(cwd, input, cursor)
 					ac.UpdatePrefix(string(input))
-					fmt.Printf("\b \b")
 				}
 			case keyboard.KeyArrowDown:
 				if pos < len(ac.GetSuggestions()) {
@@ -126,16 +128,18 @@ func main() {
 					fmt.Print("\033[C")
 				}
 			default:
-				fmt.Printf("%s", buffer+string(r))
+				if cursor < 0 {
+					cursor = 0
+				}
+				if cursor > len(input) {
+					cursor = len(input)
+				}
+				input = append(input[:cursor], append([]rune{r}, input[cursor:]...)...)
 				cursor++
-				input = append(input, r)
+				inputpkg.RedrawInput(cwd, input, cursor)
 				ac.UpdatePrefix(string(input))
 			}
 		}
-		// NOTE:
-		// if !scanner.Scan() {
-		// 	break
-		// }
 	EXECUTE:
 		line := strings.TrimSpace(string(input))
 
