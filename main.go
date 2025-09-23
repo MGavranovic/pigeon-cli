@@ -115,8 +115,7 @@ func main() {
 					pos--
 					autocomplete.RenderSuggestions(ac, pos)
 				}
-				// input = []rune{}
-				// fmt.Printf("%s", historyEntries[len(historyEntries)-1])
+				inputpkg.PrintHistory(history.Entries, pos)
 			case keyboard.KeyArrowLeft:
 				if cursor > 0 {
 					cursor--

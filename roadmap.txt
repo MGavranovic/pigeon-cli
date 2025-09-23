@@ -61,3 +61,7 @@ Possible additions:
 DEBUG:
 Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
 Need to investigate that.
+
+TODO:
+- make another file in inputpkg for handling the last used command with up arrow
+if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
