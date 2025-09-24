@@ -59,9 +59,20 @@ Possible additions:
     Change the CLI prompt (e.g. from cwd > to something custom).
 
 DEBUG:
-Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
+- Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
 Need to investigate that.
+- when hitting keys as ESC, the input displayed appears to show nothing, but it re-renders the input, and when you hit BSPACE it appears to delete "something"
 
 TODO:
 - make another file in inputpkg for handling the last used command with up arrow
 if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
+- currently, the below code is repeated and will have to rewrite it in a func:
+NOTE: Line: 154
+entry := history.Entries[len(history.Entries)-historyPos]
+line := entry.Cmd
+if entry.Args != "" {
+	line += " " + entry.Args
+}
+input = []rune(line)
+cursor = len(input)
+inputpkg.RedrawInput(cwd, input, cursor)

@@ -35,6 +35,16 @@ DOC:
 for global state
 */
 var cwd string
+var historyPos int = 0
+
+/*
+DOC:
+- used for changing the mode to be able to better navigate the terminal
+history enables up and down arrows when pos = 0
+- input enables user typing, tab key, backspace and enter for suggestions and running the cmds
+- ac, initiated on tab, enables up and down
+*/
+var mode string = "input" // "input", "autocomplete", "history"
 
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
@@ -86,10 +96,12 @@ func main() {
 			switch key {
 			case keyboard.KeyTab:
 				pos = 0
+				mode = "autocomplete"
 				autocomplete.RenderSuggestions(ac, pos)
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
 				fmt.Print("\033[0J")
+				mode = "input"
 				goto EXECUTE
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
@@ -106,16 +118,50 @@ func main() {
 					ac.UpdatePrefix(string(input))
 				}
 			case keyboard.KeyArrowDown:
-				if pos < len(ac.GetSuggestions()) {
-					pos++
-					autocomplete.RenderSuggestions(ac, pos)
+				if mode == "autocomplete" {
+					if pos < len(ac.GetSuggestions()) {
+						pos++
+						autocomplete.RenderSuggestions(ac, pos)
+					}
+				} else {
+					if historyPos > 1 {
+						historyPos--
+						entry := history.Entries[len(history.Entries)-historyPos]
+						line := entry.Cmd
+						if entry.Args != "" {
+							line += " " + entry.Args
+						}
+						input = []rune(line)
+						cursor = len(input)
+						inputpkg.RedrawInput(cwd, input, cursor)
+					} else {
+						historyPos = 0
+						input = []rune{}
+						cursor = 0
+						inputpkg.RedrawInput(cwd, input, cursor)
+						mode = "input"
+					}
 				}
 			case keyboard.KeyArrowUp:
-				if pos != 0 {
-					pos--
-					autocomplete.RenderSuggestions(ac, pos)
+				if mode == "autocomplete" {
+					if pos > 0 {
+						pos--
+						autocomplete.RenderSuggestions(ac, pos)
+					}
+				} else {
+					if historyPos < len(history.Entries) {
+						historyPos++
+						entry := history.Entries[len(history.Entries)-historyPos]
+						line := entry.Cmd
+						if entry.Args != "" {
+							line += " " + entry.Args
+						}
+						input = []rune(line)
+						cursor = len(input)
+						inputpkg.RedrawInput(cwd, input, cursor)
+						mode = "history"
+					}
 				}
-				inputpkg.PrintHistory(history.Entries, pos)
 			case keyboard.KeyArrowLeft:
 				if cursor > 0 {
 					cursor--
@@ -127,6 +173,7 @@ func main() {
 					fmt.Print("\033[C")
 				}
 			default:
+				mode = "input"
 				if cursor < 0 {
 					cursor = 0
 				}
