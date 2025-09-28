@@ -66,13 +66,6 @@ Need to investigate that.
 TODO:
 - make another file in inputpkg for handling the last used command with up arrow
 if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
-- currently, the below code is repeated and will have to rewrite it in a func:
-NOTE: Line: 154
-entry := history.Entries[len(history.Entries)-historyPos]
-line := entry.Cmd
-if entry.Args != "" {
-	line += " " + entry.Args
-}
-input = []rune(line)
-cursor = len(input)
-inputpkg.RedrawInput(cwd, input, cursor)
+
+DEBUG:0
+- the problem now is that if you scroll up through the history command and you hit TAB for autocomplete, the suggestions will be provided for the cmd that was executed the latest

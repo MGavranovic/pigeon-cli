@@ -1,18 +1,21 @@
 package inputpkg
 
 import (
-	"fmt"
+	// "fmt"
 
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
 )
 
-var historyPos int = 0
-
-func PrintHistory(history []cmd.Entry, pos int) {
+func PrintHistory(history []cmd.Entry, pos int, historyPos int, cwd string) {
 	if pos == 0 && len(history) > 0 {
-		prev := history[len(history)-1].Cmd
-		runeInput := []rune(prev)
-		fmt.Println("this is a previous entry", prev)
-		fmt.Println("this is a previous entry", runeInput)
+		entry := history[len(history)-historyPos]
+		line := entry.Cmd
+
+		if entry.Args != "" {
+			line += " " + entry.Args
+		}
+		runeInput := []rune(line)
+		cursor := len(runeInput)
+		RedrawInput(cwd, runeInput, cursor)
 	}
 }

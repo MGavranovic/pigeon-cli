@@ -126,14 +126,7 @@ func main() {
 				} else {
 					if historyPos > 1 {
 						historyPos--
-						entry := history.Entries[len(history.Entries)-historyPos]
-						line := entry.Cmd
-						if entry.Args != "" {
-							line += " " + entry.Args
-						}
-						input = []rune(line)
-						cursor = len(input)
-						inputpkg.RedrawInput(cwd, input, cursor)
+						inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 					} else {
 						historyPos = 0
 						input = []rune{}
@@ -151,14 +144,7 @@ func main() {
 				} else {
 					if historyPos < len(history.Entries) {
 						historyPos++
-						entry := history.Entries[len(history.Entries)-historyPos]
-						line := entry.Cmd
-						if entry.Args != "" {
-							line += " " + entry.Args
-						}
-						input = []rune(line)
-						cursor = len(input)
-						inputpkg.RedrawInput(cwd, input, cursor)
+						inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 						mode = "history"
 					}
 				}
