@@ -126,7 +126,7 @@ func main() {
 				} else {
 					if historyPos > 1 {
 						historyPos--
-						inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
+						input = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 					} else {
 						historyPos = 0
 						input = []rune{}
@@ -144,7 +144,7 @@ func main() {
 				} else {
 					if historyPos < len(history.Entries) {
 						historyPos++
-						inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
+						input = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 						mode = "history"
 					}
 				}
