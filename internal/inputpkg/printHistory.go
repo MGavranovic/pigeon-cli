@@ -20,5 +20,5 @@ func PrintHistory(history []cmd.Entry, pos int, historyPos int, cwd string) []ru
 		RedrawInput(cwd, runeInput, cursor)
 		return runeInput
 	}
-	return nil
+	return []rune{}
 }
