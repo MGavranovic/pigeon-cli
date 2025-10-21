@@ -99,7 +99,10 @@ func main() {
 				suggestions := autocomplete.RenderSuggestions(ac, pos)
 				if mode == "autocomplete" && pos > 0 {
 					input = []rune(suggestions[pos-1].Cmd)
-					inputpkg.RedrawInput(cwd, input, len(input))
+					cursor = len(input)
+					inputpkg.RedrawInput(cwd, input, cursor)
+					pos = 0
+					autocomplete.RenderSuggestions(ac, pos)
 				}
 				pos = 0
 				mode = "autocomplete"
