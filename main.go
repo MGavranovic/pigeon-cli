@@ -89,15 +89,20 @@ func main() {
 
 		var input []rune
 		for {
+			// fmt.Printf("\nMODE: %s\nPOS: %d\n", mode, pos)
 			r, key, err := keyboard.GetKey()
 			if err != nil {
 				color.Red("Error getting the key: %s", err)
 			}
 			switch key {
 			case keyboard.KeyTab:
+				suggestions := autocomplete.RenderSuggestions(ac, pos)
+				if mode == "autocomplete" && pos > 0 {
+					input = []rune(suggestions[pos-1].Cmd)
+					inputpkg.RedrawInput(cwd, input, len(input))
+				}
 				pos = 0
 				mode = "autocomplete"
-				autocomplete.RenderSuggestions(ac, pos)
 			case keyboard.KeyEnter:
 				fmt.Printf("\n")
 				fmt.Print("\033[0J")

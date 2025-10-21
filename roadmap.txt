@@ -67,5 +67,11 @@ TODO:
 - make another file in inputpkg for handling the last used command with up arrow
 if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
 
-DEBUG:0
+DEBUG:
 - the problem now is that if you scroll up through the history command and you hit TAB for autocomplete, the suggestions will be provided for the cmd that was executed the latest
+
+DEBUG:
+- implemented accepting an autocomplete suggestion
+- issue:
+    - if you try to autocomplete again, it doesn't works
+    - first input after selecting a suggestion is rendered, but it appears as it's moved back (possibly cursor value being decreased by 1)

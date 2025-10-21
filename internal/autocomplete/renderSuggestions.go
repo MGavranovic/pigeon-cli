@@ -6,7 +6,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func RenderSuggestions(ac *Engine, pos int) {
+func RenderSuggestions(ac *Engine, pos int) []Suggestion {
 	fmt.Print("\033[s")  // save cursor pos
 	fmt.Print("\033[0J") // clear below cursor
 	fmt.Print("\033[E")  // move a line below
@@ -20,7 +20,8 @@ func RenderSuggestions(ac *Engine, pos int) {
 		DOC:
 		compare the pos to current index in for loop
 	*/
-	for i, s := range ac.GetSuggestions() {
+	suggestions := ac.GetSuggestions()
+	for i, s := range suggestions {
 		gap := 10 - len(s.Cmd)
 		toColorCmd := fmt.Sprintf("%s", s.Cmd)
 		for range gap {
@@ -39,4 +40,5 @@ func RenderSuggestions(ac *Engine, pos int) {
 	}
 
 	fmt.Print("\033[u") // restore original pos
+	return suggestions
 }
