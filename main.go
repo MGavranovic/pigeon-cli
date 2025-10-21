@@ -102,6 +102,7 @@ func main() {
 				fmt.Printf("\n")
 				fmt.Print("\033[0J")
 				mode = "input"
+				historyPos = 0
 				goto EXECUTE
 			case keyboard.KeySpace:
 				fmt.Printf(string(32))
@@ -126,7 +127,7 @@ func main() {
 				} else {
 					if historyPos > 1 {
 						historyPos--
-						input = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
+						input, cursor = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 					} else {
 						historyPos = 0
 						input = []rune{}
@@ -144,7 +145,7 @@ func main() {
 				} else {
 					if historyPos < len(history.Entries) {
 						historyPos++
-						input = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
+						input, cursor = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 						mode = "history"
 					}
 				}
