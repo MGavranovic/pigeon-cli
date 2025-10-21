@@ -167,6 +167,9 @@ func main() {
 					cursor++
 					fmt.Print("\033[C")
 				}
+			// if DELETE is pressed a value is added to the input, appearing as nothing and if backspace is hit, that nothing gets deleted. The following case will handle all those keys.
+			case keyboard.KeyDelete:
+				continue
 			default:
 				mode = "input"
 				if cursor < 0 {
