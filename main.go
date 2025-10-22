@@ -51,7 +51,7 @@ var mode string = "input" // "input", "autocomplete", "history"
 
 - DELETE is being ignored atm, will need to implement the functionality for it to actually delete
 */
-var validKeys = map[keyboard.Key]bool{keyboard.KeyF1: false, keyboard.KeyF2: false, keyboard.KeyF3: false, keyboard.KeyF4: false, keyboard.KeyF5: false, keyboard.KeyF6: false, keyboard.KeyF7: false, keyboard.KeyF8: false, keyboard.KeyF9: false, keyboard.KeyF10: false, keyboard.KeyF11: false, keyboard.KeyF12: false, keyboard.KeyDelete: false, keyboard.KeyEsc: false, keyboard.KeyInsert: false, keyboard.KeyEnd: false, keyboard.KeyHome: false, keyboard.KeyPgdn: false, keyboard.KeyPgup: false}
+var invalidKeys = map[keyboard.Key]bool{keyboard.KeyF1: true, keyboard.KeyF2: true, keyboard.KeyF3: true, keyboard.KeyF4: true, keyboard.KeyF5: true, keyboard.KeyF6: true, keyboard.KeyF7: true, keyboard.KeyF8: true, keyboard.KeyF9: true, keyboard.KeyF10: true, keyboard.KeyF11: true, keyboard.KeyF12: true, keyboard.KeyDelete: true, keyboard.KeyEsc: true, keyboard.KeyInsert: true, keyboard.KeyEnd: true, keyboard.KeyHome: true, keyboard.KeyPgdn: true, keyboard.KeyPgup: true}
 
 func main() {
 	fmt.Println("Hello World!\nWelcome to pigeon-cli!")
@@ -103,7 +103,7 @@ func main() {
 			}
 
 			// if DELETE is pressed a value is added to the input, appearing as nothing and if backspace is hit, that nothing gets deleted. The following case will handle all those keys.
-			if !validKeys[key] {
+			if invalidKeys[key] {
 				continue
 			}
 

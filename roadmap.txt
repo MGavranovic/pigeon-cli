@@ -36,7 +36,7 @@ Possible additions:
 3. cp DONE:
     Copy files. 
 3.1. rm: DONE:
-    Can add --force
+    Can add --force DONE:
 4. head / tail
     Show the first or last N lines of a file.
 5. grep DONE:
@@ -48,7 +48,7 @@ Possible additions:
     Custom version of wc with total file count, file type stats, etc.
 8. find
     Find a file by name.
-9. clear DONE:
+9. cl DONE:
     Clears the terminal.
 10. history DONE: 
     List previous commands during this session.
@@ -61,7 +61,7 @@ Possible additions:
 DEBUG:
 - Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
 Need to investigate that.
-- when hitting keys as ESC, the input displayed appears to show nothing, but it re-renders the input, and when you hit BSPACE it appears to delete "something"
+- DONE: when hitting keys as ESC, the input displayed appears to show nothing, but it re-renders the input, and when you hit BSPACE it appears to delete "something"
 
 TODO:
 - DONE: make another file in inputpkg for handling the last used command with up arrow
