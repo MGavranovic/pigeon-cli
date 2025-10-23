@@ -1,8 +1,6 @@
 package inputpkg
 
 import (
-	"fmt"
-
 	"github.com/MGavranovic/pigeon-cli/internal/cmd"
 )
 
@@ -15,7 +13,6 @@ func PrintHistory(history []cmd.Entry, pos int, historyPos int, cwd string) ([]r
 			line += " " + entry.Args
 		}
 		runeInput := []rune(line)
-		fmt.Println("\nruneInput in PrintHistory() => ", string(runeInput))
 		cursor := len(runeInput)
 		RedrawInput(cwd, runeInput, cursor)
 		return runeInput, len(runeInput)

@@ -149,6 +149,7 @@ func main() {
 					if historyPos > 1 {
 						historyPos--
 						input, cursor = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
+						ac.UpdatePrefix(string(input))
 					} else {
 						historyPos = 0
 						input = []rune{}
@@ -168,6 +169,7 @@ func main() {
 						historyPos++
 						input, cursor = inputpkg.PrintHistory(history.Entries, pos, historyPos, cwd)
 						mode = "history"
+						ac.UpdatePrefix(string(input))
 					}
 				}
 			case keyboard.KeyArrowLeft:
