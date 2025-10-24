@@ -126,11 +126,17 @@ func main() {
 				historyPos = 0
 				goto EXECUTE
 			case keyboard.KeySpace:
-				fmt.Printf(string(32))
-				input = append(input, ' ')
-				if cursor < len(input) {
-					cursor++
+				if cursor < 0 {
+					cursor = 0
 				}
+				if cursor >= len(input) {
+					input = append(input, ' ')
+				} else {
+					input = append(input[:cursor], append([]rune{' '}, input[cursor:]...)...)
+				}
+				cursor++
+				fmt.Printf(string(32))
+				inputpkg.RedrawInput(cwd, input, cursor)
 				ac.UpdatePrefix(string(input))
 			case keyboard.KeyBackspace:
 				if len(input) > 0 && cursor > 0 {
