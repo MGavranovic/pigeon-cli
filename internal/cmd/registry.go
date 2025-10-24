@@ -15,5 +15,6 @@ func AllCommands() []Command {
 		&GrepCommand{},
 		&WcCommand{},
 		&TreeCommand{},
+		&ZpCommand{},
 	}
 }
