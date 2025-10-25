@@ -7,6 +7,6 @@ import (
 	// "archive/zip"
 )
 
-func Unzip() {
-	fmt.Println("From Unzip()")
+func Unzip(files []string) {
+	fmt.Printf("Unzip() => %s\n", files)
 }

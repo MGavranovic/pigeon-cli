@@ -7,7 +7,11 @@ import (
 	// "os"
 )
 
-func Zip() {
-	fmt.Println("From Zip()")
-
+func Zip(files []string, name string) {
+	if name == "" {
+		name = "archive.zip"
+		fmt.Printf("Zip() => %s into > %s\n", files, name)
+	} else {
+		fmt.Printf("Zip() => %s into > %s\n", files, name)
+	}
 }
