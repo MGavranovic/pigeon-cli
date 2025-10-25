@@ -43,7 +43,7 @@ func (c *ZpCommand) Execute(args []string) (bool, error) {
 	if slices.Contains(args, "-p") { // check if path provided and assign it
 		i := slices.Index(args, "-p")
 		for _, p := range args[i+1:] {
-			if strings.HasPrefix(path, "-") {
+			if strings.HasPrefix(p, "-") {
 				break
 			}
 			path = p
@@ -51,6 +51,7 @@ func (c *ZpCommand) Execute(args []string) (bool, error) {
 	} else { // otherwise, path set to cwd
 		path = "."
 	}
+	fmt.Println("PATH => ", path)
 
 	// reading the dir from path provided
 	dir, err := os.ReadDir(path)
