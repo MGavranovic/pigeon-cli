@@ -1,10 +1,10 @@
 # pigeon-cli
 
-A minimal yet extensible custom CLI tool inspired by Unix-style commands. Built in Go to explore and practice terminal interactions, command execution, and a touch of raw keyboard input.
+A minimal yet extensible custom CLI tool inspired by Linux-style commands, built in Go.
 
 ## Features
 
-- Unix-inspired command structure (`ls`, `cd`, `cat`, `touch`, `exit`, etc.)
+- Linux-inspired command structure (`ls`, `cd`, `cat`, `touch`, `exit`, etc.)
 - Colorized output with [`fatih/color`](https://github.com/fatih/color)
 - File operations, tree listing, and word/byte counting
 - History tracking with status reporting
@@ -29,7 +29,11 @@ pigeon-cli/
 │       ├── ls.go
 │       ├── cd.go
 │       ├── ...
-├── main.go           # Main entry point
+│   └── autocomplete/     # Autocomplete pkg
+│   └── autocomplete/     # Autocomplete pkg
+│   └── inputpkg/         # Terminal drawing
+│   └── helpers/          # Helpers pkg
+├── main.go               # Main entry point
 ├── go.mod
 └── README.md
 ```
@@ -68,17 +72,17 @@ Below are planned or in-progress features for **pigeon-cli**.
       Renames a file.
 - [x] `grep`
       Searches for a string in a file and highlights the matches.
+- [x] Autocomplete (TAB-suggestions + arrow key navigation)
 
 ### In Progress
-
-- [ ] Autocomplete (TAB-suggestions + arrow key navigation)
+- [ ] Zip/upload utility
+- [ ] Revamping args logic
 
 ### Planned
 
 - [ ] Command aliases
 - [ ] Config file for themes/settings/shortcuts
 - [ ] File search
-- [ ] Zip/upload utility
 - [ ] Cross-platform terminal support (Windows/macOS/Linux)
 - [ ] Setup a pipleine for running the build process for the app.
 
@@ -89,3 +93,4 @@ PRs, issues, and suggestions welcome.
 ## License
 
 [MIT](./LICENSE) License. Built by Milos Gavranovic.
+
