@@ -37,7 +37,7 @@ func (c *ZpCommand) Execute(args []string) (bool, error) {
 			files = append(files, file)
 		}
 	} else {
-		return false, fmt.Errorf("-f arg required")
+		return false, fmt.Errorf("-f <files> arg required")
 	}
 
 	if slices.Contains(args, "-p") { // check if path provided and assign it
@@ -93,7 +93,10 @@ func (c *ZpCommand) Execute(args []string) (bool, error) {
 	}
 
 	if slices.Contains(args, "-u") {
-		helpers.Unzip(files)
+		uZpErr := helpers.Unzip(files)
+		if err != nil {
+			return false, uZpErr
+		}
 	} else {
 		zpErr := helpers.Zip(files, name)
 		if zpErr != nil {

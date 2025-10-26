@@ -1,13 +1,10 @@
 package helpers
 
 import (
-	// "archive/zip"
 	"archive/zip"
 	"fmt"
 	"io"
 	"os"
-	// "io"
-	// "os"
 )
 
 func Zip(files []string, name string) error {
@@ -38,7 +35,7 @@ func Zip(files []string, name string) error {
 			return err
 		}
 		_, errCopy := io.Copy(w, f)
-		if err != nil {
+		if errCopy != nil {
 			return errCopy
 		}
 	}

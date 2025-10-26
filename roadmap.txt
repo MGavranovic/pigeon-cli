@@ -57,6 +57,7 @@ Possible additions:
     Save shortcuts for longer commands (like ls -a → ll).
 12. prompt
     Change the CLI prompt (e.g. from cwd > to something custom).
+13. zp DONE:
 
 DEBUG:
 - Sometimes it seems that the order of suggestions gets messed up when using the arrow keys leading to the same suggestion being highlighted again because it moves.
@@ -75,3 +76,8 @@ DEBUG:
 - issue:
     - if you try to autocomplete again, it doesn't works
     - DONE: - first input after selecting a suggestion is rendered, but it appears as it's moved back (possibly cursor value being decreased by 1)
+
+TODO: 
+- zp - currently, if unziping fils you would use -u to indicate it's the unzip action and -f for the files you want to unzip
+- zp without -u is zipping the files added with -f
+- a confusion might happen with those and I will somehow have to let the users know how to use -f with -u and without
