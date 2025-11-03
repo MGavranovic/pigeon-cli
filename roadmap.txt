@@ -81,3 +81,5 @@ TODO:
 - zp - currently, if unziping fils you would use -u to indicate it's the unzip action and -f for the files you want to unzip
 - zp without -u is zipping the files added with -f
 - a confusion might happen with those and I will somehow have to let the users know how to use -f with -u and without
+
+NOTE: switched to Linux, have to keep in mind the functionality on Win
