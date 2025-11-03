@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/MGavranovic/pigeon-cli/internal/autocomplete"
@@ -62,6 +63,14 @@ func main() {
 		color.Red("Error opening keyboard: %s\n", err)
 	}
 	defer keyboard.Close()
+
+	// NOTE: depending on OS different bacspace is used. Linux uses KeyBackspace2 while Win uses KeyBackspace
+	oSys := runtime.GOOS
+	fmt.Println("OPERATING SYSTEM", oSys)
+	bsKey := keyboard.KeyBackspace2
+	if oSys == "windows" {
+		bsKey = keyboard.KeyBackspace
+	}
 
 	commands := make(map[string]cmd.Command)
 	for _, c := range cmd.AllCommands() {
@@ -138,7 +147,7 @@ func main() {
 				fmt.Printf(string(32))
 				inputpkg.RedrawInput(cwd, input, cursor)
 				ac.UpdatePrefix(string(input))
-			case keyboard.KeyBackspace:
+			case bsKey: // var depends on the OS
 				if len(input) > 0 && cursor > 0 {
 					input = append(input[:cursor-1], input[cursor:]...)
 					cursor--
