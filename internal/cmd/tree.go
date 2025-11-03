@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 )
 
@@ -14,17 +15,26 @@ func (c *TreeCommand) Name() string {
 }
 
 func (c *TreeCommand) Description() string {
-	return "displays the directory structure"
+	return fmt.Sprintf("displays the directory structure\n%-10s - tree <flags[-p(path), if not used, display the cwd tree]>\n", "syntax:")
 }
 
 func (c *TreeCommand) Execute(args []string) (bool, error) {
+	path := ""
 	if len(args) == 0 {
 		return false, printTree(".", "")
 	}
-	if len(args) > 1 {
-		return false, fmt.Errorf("please specify the path")
+	if slices.Contains(args, "-p") {
+		i := slices.Index(args, "-p")
+		for _, p := range args[i+1:] {
+			if strings.HasPrefix(p, "-") {
+				break
+			}
+			path = p
+		}
+	} else {
+		path = "."
 	}
-	return false, printTree(args[0], "")
+	return false, printTree(path, "")
 }
 
 func printTree(path string, prefix string) error {
