@@ -83,3 +83,21 @@ TODO:
 - a confusion might happen with those and I will somehow have to let the users know how to use -f with -u and without
 
 NOTE: switched to Linux, have to keep in mind the functionality on Win
+
+TODO: list of cmds updated for args
+1. cat
+2. cd
+3. cp
+4. cl
+5. exit
+6. grep
+7. help
+8. history
+9. ls
+10. mv
+11. rm
+12. rn
+13. touch
+14. tree DONE:
+15. wc DONE:
+16. zip DONE:
