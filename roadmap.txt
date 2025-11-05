@@ -85,8 +85,8 @@ TODO:
 NOTE: switched to Linux, have to keep in mind the functionality on Win
 
 TODO: list of cmds updated for args
-1. cat DONE:
-2. cd
+1. cat DONE: - not sure flags are needed.
+2. cd 
 3. cp
 4. cl
 5. exit
