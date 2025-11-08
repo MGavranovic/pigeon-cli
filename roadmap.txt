@@ -99,5 +99,9 @@ TODO: list of cmds updated for args
 12. rn
 13. touch
 14. tree DONE:
-15. wc DONE:
+15. wc DONE: - add flags for letters and lines
 16. zip DONE:
+
+
+DEBUG:
+- autocomplete - matches with files and folders are not happening

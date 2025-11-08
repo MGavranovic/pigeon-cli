@@ -14,7 +14,7 @@ func (c *RmCommand) Name() string {
 }
 
 func (c *RmCommand) Description() string {
-	return fmt.Sprintf("Command for moving the files\n%-10s - rm <file> <flags[--force]>\n", "syntax:")
+	return fmt.Sprintf("Command for moving the files\n%-10s - rm <file> <flags[-f]>\n", "syntax:")
 }
 
 func (c *RmCommand) Execute(args []string) (bool, error) {
@@ -23,12 +23,12 @@ func (c *RmCommand) Execute(args []string) (bool, error) {
 	}
 
 	path := args[0]
-	if slices.Contains(args, "--force") {
+	if slices.Contains(args, "-f") {
 		err := os.Remove(path)
 		if err != nil {
 			return false, fmt.Errorf("error removing the file: %s", err)
 		}
-		fmt.Printf(" - %s - file deleted successfully with '--force'\n", path)
+		fmt.Printf(" - %s - file deleted successfully with '-f'\n", path)
 		return false, nil
 	} else {
 		fmt.Printf("Are you sure you want to remove '%s'?\n", path)

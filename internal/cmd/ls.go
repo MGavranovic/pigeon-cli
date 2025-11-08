@@ -17,11 +17,6 @@ func (c *LsCommand) Description() string {
 }
 
 func (c *LsCommand) Execute(args []string) (bool, error) {
-	allowedFlags := []string{"-a"}
-	for _, arg := range args {
-		fmt.Printf("These are args for the ls command %s\n", arg)
-	}
-
 	dir, err := os.ReadDir(".")
 	if err != nil {
 		return false, fmt.Errorf("error: %s", err)
@@ -34,18 +29,16 @@ func (c *LsCommand) Execute(args []string) (bool, error) {
 		}
 
 		for i := 0; i < len(args); i++ {
-			if slices.Contains(allowedFlags, args[i]) {
-				if args[i] == "-a" {
-					fName := f.Name()
-					fSize := fInfo.Size()
-					fMode := fInfo.Mode()
+			if slices.Contains(args, "-a") {
+				fName := f.Name()
+				fSize := fInfo.Size()
+				fMode := fInfo.Mode()
 
-					fModY, fModM, fModD := fInfo.ModTime().Local().Date()
-					fModH, fModMin, fModS := fInfo.ModTime().Local().Clock()
-					timeFormatted := fmt.Sprintf("%02d:%02d:%02d", fModH, fModMin, fModS)
+				fModY, fModM, fModD := fInfo.ModTime().Local().Date()
+				fModH, fModMin, fModS := fInfo.ModTime().Local().Clock()
+				timeFormatted := fmt.Sprintf("%02d:%02d:%02d", fModH, fModMin, fModS)
 
-					fmt.Printf("%-10s > %10db > %s > %d/%d/%d, %s\n", fName, fSize, fMode, fModD, fModM, fModY, timeFormatted)
-				}
+				fmt.Printf("%-10s > %10db > %s > %d/%d/%d, %s\n", fName, fSize, fMode, fModD, fModM, fModY, timeFormatted)
 			} else {
 				errorCount++
 				if errorCount > 1 {
