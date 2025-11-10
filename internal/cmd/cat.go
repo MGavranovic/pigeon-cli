@@ -3,8 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"slices"
-	"strings"
 )
 
 type CatCommand struct{}
@@ -19,27 +17,15 @@ func (c *CatCommand) Description() string {
 
 func (c *CatCommand) Execute(args []string) (bool, error) {
 	if len(args) == 0 {
-		return false, fmt.Errorf("please specify the file you want to read with -f")
+		return false, fmt.Errorf("please specify the file you want to read")
 	}
 
-	path := ""
-	if slices.Contains(args, "-f") {
-		i := slices.Index(args, "-f")
-		for _, f := range args[i+1:] {
-			if strings.HasPrefix(f, "-") {
-				break
-			}
-			path = f
-		}
-		file, err := os.ReadFile(path)
-		if err != nil {
-			return false, fmt.Errorf("error reading from %s: %s", path, err)
-		}
-
-		s := string(file)
-		fmt.Println(s)
-	} else {
-		return false, fmt.Errorf("please specify the file you want to read with -f")
+	fName := args[0]
+	file, err := os.ReadFile(fName)
+	if err != nil {
+		return false, fmt.Errorf("error reading from file %s: %s", fName, err)
 	}
+	s := string(file)
+	fmt.Println(s)
 	return false, nil
 }
