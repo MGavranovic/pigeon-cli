@@ -5,6 +5,8 @@ import (
 	"os"
 	"slices"
 	"strings"
+
+	"github.com/eiannone/keyboard"
 )
 
 type RmCommand struct{}
@@ -31,26 +33,29 @@ func (c *RmCommand) Execute(args []string) (bool, error) {
 		fmt.Printf(" - %s - file deleted successfully with '-f'\n", path)
 		return false, nil
 	} else {
-		fmt.Printf("Are you sure you want to remove '%s'?\n", path)
-		fmt.Println("Y/N?")
+		for {
+			fmt.Printf("Are you sure you want to remove '%s'?\n", path)
+			fmt.Println("Y/N?")
 
-		var input string
-		fmt.Scan(&input)
-		input = strings.ToUpper(strings.TrimSpace(input))
-		switch input {
-		case "Y":
-			err := os.Remove(path)
-			if err != nil {
-				return false, fmt.Errorf("error removing the file: %s", err)
+			keyboard.Close()
+			var input string
+			fmt.Scan(&input)
+			input = strings.ToUpper(strings.TrimSpace(input))
+
+			keyboard.Open()
+			switch input {
+			case "Y":
+				err := os.Remove(path)
+				if err != nil {
+					return false, fmt.Errorf("error removing the file: %s", err)
+				}
+				fmt.Printf(" - %s - file deleted successfully\n", path)
+				return false, nil
+			case "N":
+				return false, fmt.Errorf("you chose not to delete the file")
+			default:
+				fmt.Println("Please enter Y or N")
 			}
-			fmt.Printf(" - %s - file deleted successfully\n", path)
-			return false, nil
-		case "N":
-			return false, fmt.Errorf("you chose not to delete the file")
-		default:
-			fmt.Println("Please enter Y or N")
 		}
 	}
-
-	return false, nil
 }

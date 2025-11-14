@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/eiannone/keyboard"
 )
 
 type TouchCommand struct{}
@@ -24,11 +26,15 @@ func (c *TouchCommand) Execute(args []string) (bool, error) {
 	file := args[0]
 	if _, err := os.Stat(file); err == nil {
 		fmt.Println("File already exist, do you want to overwrite it?")
-		var input string
 		for {
 			fmt.Println("Y/N?")
+
+			keyboard.Close()
+			var input string
 			fmt.Scan(&input)
 			input = strings.ToUpper(strings.TrimSpace(input))
+
+			keyboard.Open()
 			switch input {
 			case "Y":
 				newFile, err := os.OpenFile(file, os.O_CREATE|os.O_TRUNC, 0644)

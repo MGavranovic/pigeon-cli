@@ -1,3 +1,4 @@
 *.txt
 !roadmap.txt
 *.zip
+*.exe
