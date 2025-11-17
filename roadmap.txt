@@ -66,7 +66,7 @@ Need to investigate that.
 
 TODO:
 - DONE: make another file in inputpkg for handling the last used command with up arrow
-if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
+DONE: if pos is 0 and you use up arrow, it should let you "scroll" through the history of command
 
 DEBUG:
 - DONE: the problem now is that if you scroll up through the history command and you hit TAB for autocomplete, the suggestions will be provided for the cmd that was executed the latest
@@ -74,7 +74,7 @@ DEBUG:
 DEBUG:
 - implemented accepting an autocomplete suggestion
 - issue:
-    - if you try to autocomplete again, it doesn't works
+    - DONE: if you try to autocomplete again, it doesn't works
     - DONE: - first input after selecting a suggestion is rendered, but it appears as it's moved back (possibly cursor value being decreased by 1)
 
 TODO: 
@@ -104,4 +104,9 @@ TODO: list of cmds updated for args
 
 
 DEBUG:
-- autocomplete - matches with files and folders are not happening
+- autocomplete - matches with files and folders are not DONE:
+
+
+DONE:
+- tested mv with moving files to a shared location on the network on Windows devices and it works
+- TODO: have to test pw protected shared locations with custom permissions
