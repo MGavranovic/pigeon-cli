@@ -62,13 +62,18 @@ func (e *Engine) Start() {
 				}
 				for _, e := range entries {
 					if strings.HasPrefix(e.Name(), currPrefix) {
-						matches = append(matches, Suggestion{"", "", e.Name(), ""})
+						if e.IsDir() {
+							matches = append(matches, Suggestion{"", "", e.Name(), "dir"})
+						} else {
+							matches = append(matches, Suggestion{"", "", e.Name(), ""})
+						}
 					}
 				}
 				fsResults <- matches
 			}()
 
 			merged := append(<-cmdResults, <-fsResults...)
+
 			e.mu.Lock()
 			e.Suggestions = merged
 			e.mu.Unlock()

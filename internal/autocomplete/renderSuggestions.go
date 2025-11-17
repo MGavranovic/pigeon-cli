@@ -16,6 +16,10 @@ func RenderSuggestions(ac *Engine, pos int) []Suggestion {
 	highlightDesc := color.RGB(1, 1, 0)
 	highlightCmd := color.RGB(55, 69, 96)
 
+	fileColor := color.RGB(255, 255, 255)
+	dirColor := color.RGB(0, 0, 255)
+	highlight := color.RGB(100, 159, 237)
+
 	/*
 		DOC:
 		compare the pos to current index in for loop
@@ -29,13 +33,29 @@ func RenderSuggestions(ac *Engine, pos int) []Suggestion {
 		}
 
 		if pos == i+1 {
-			coloredDesc := highlightDesc.AddBgRGB(1, 0, 1).Sprintf("%s", s.Desc)
-			coloredCmd := highlightCmd.AddBgRGB(127, 148, 189).Sprintf("%s", toColorCmd)
-			fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc)
+			if s.Desc == "dir" {
+				coloredDir := highlight.Sprintf("%s", s.File)
+				fmt.Printf("%s\n", coloredDir)
+			} else if s.File != "" {
+				coloredFile := highlight.Sprintf("%s", s.File)
+				fmt.Printf("%s\n", coloredFile)
+			} else {
+				coloredDesc := highlightDesc.AddBgRGB(1, 0, 1).Sprintf("%s", s.Desc)
+				coloredCmd := highlightCmd.AddBgRGB(127, 148, 189).Sprintf("%s", toColorCmd)
+				fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc)
+			}
 		} else {
-			coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf("%s", s.Desc)
-			coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf("%s", toColorCmd)
-			fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc) // print suggestions
+			if s.Desc == "dir" {
+				coloredDir := dirColor.Sprintf("%s", s.File)
+				fmt.Printf("%s\n", coloredDir)
+			} else if s.File != "" {
+				coloredFile := fileColor.Sprintf("%s", s.File)
+				fmt.Printf("%s\n", coloredFile)
+			} else {
+				coloredDesc := descColor.AddBgRGB(127, 148, 189).Sprintf("%s", s.Desc)
+				coloredCmd := cmdColor.AddBgRGB(1, 0, 1).Sprintf("%s", toColorCmd)
+				fmt.Printf("%s %*s\n", coloredCmd, gap, coloredDesc) // print suggestions
+			}
 		}
 	}
 
