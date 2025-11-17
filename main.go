@@ -120,11 +120,19 @@ func main() {
 			case keyboard.KeyTab:
 				suggestions := autocomplete.RenderSuggestions(ac, pos)
 				if mode == "autocomplete" && pos > 0 {
-					input = []rune(suggestions[pos-1].Cmd)
-					cursor = len(input)
-					inputpkg.RedrawInput(cwd, input, cursor)
-					pos = 0
-					autocomplete.RenderSuggestions(ac, pos)
+					if suggestions[pos-1].File != "" {
+						input = []rune(suggestions[pos-1].File)
+						cursor = len(input)
+						inputpkg.RedrawInput(cwd, input, cursor)
+						pos = 0
+						autocomplete.RenderSuggestions(ac, pos)
+					} else {
+						input = []rune(suggestions[pos-1].Cmd)
+						cursor = len(input)
+						inputpkg.RedrawInput(cwd, input, cursor)
+						pos = 0
+						autocomplete.RenderSuggestions(ac, pos)
+					}
 				}
 				pos = 0
 				mode = "autocomplete"
